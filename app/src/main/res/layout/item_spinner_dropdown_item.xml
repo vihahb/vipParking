@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text2"
+    style="@style/Spinner_Item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_40"
+    android:textColor="@color/colorPrimary"
+    android:textSize="@dimen/font_13" />

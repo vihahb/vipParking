@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/btn_fb_plus"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <FrameLayout
+        android:layout_width="@dimen/size_83"
+        android:layout_height="@dimen/size_83">
+
+        <com.xtel.vparking.vip.view.widget.RoundImage
+            android:id="@+id/header_img_avatar"
+            android:layout_width="@dimen/size_80"
+            android:layout_height="@dimen/size_80"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <ImageButton
+            android:id="@+id/header_img_qr"
+            android:layout_width="@dimen/size_30"
+            android:layout_height="@dimen/size_30"
+            android:layout_gravity="bottom|right|end"
+            android:background="@drawable/round_background_red"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:padding="@dimen/size_6"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_check_in" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/header_txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_24"
+        android:layout_marginRight="@dimen/size_24"
+        android:layout_marginTop="@dimen/size_16"
+        android:ellipsize="end"
+        android:drawablePadding="@dimen/size_8"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+</LinearLayout>

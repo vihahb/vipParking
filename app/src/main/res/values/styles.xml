@@ -1,0 +1,307 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--<item name="android:textColorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="android:background">@color/colorPrimary</item>-->
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+    </style>
+
+    <style name="MaterialDialogSheet" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/MaterialDialogSheetAnimation</item>
+    </style>
+
+    <style name="MaterialDialogSheetAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_hide</item>
+    </style>
+
+    <style name="MyTabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MyTabTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">@dimen/font_14</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TimePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Quanly_item_textview">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <style name="Quanly_item_title">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+        <item name="android:paddingLeft">@dimen/size_8</item>
+        <item name="android:paddingRight">@dimen/size_8</item>
+    </style>
+
+    <style name="Profile_editext">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">@dimen/size_24</item>
+        <item name="android:paddingRight">@dimen/size_24</item>
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+    </style>
+
+    <style name="Profile_editext.ButtumLine" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AddParking_Editext.ButtumLine" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+    </style>
+
+    <style name="AddParking_Editext">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:inputType">text</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginTop">@dimen/size_16</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingTop">@dimen/size_8</item>
+        <item name="android:paddingBottom">@dimen/size_16</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <style name="AddParking_Editext_No_Focus">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:inputType">text</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginTop">@dimen/size_16</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart" tools:ignore="NewApi">0dp</item>
+        <item name="android:paddingEnd" tools:ignore="NewApi">0dp</item>
+        <item name="android:paddingTop">@dimen/size_8</item>
+        <item name="android:paddingBottom">@dimen/size_16</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="AddParking_Textview">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:layout_marginTop">@dimen/size_16</item>
+    </style>
+
+    <style name="AddParking_Textview_No_Margin">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:layout_marginTop">@dimen/size_16</item>
+    </style>
+
+    <style name="AddParking_ImageButton">
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="TextView_Marquee">
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextView_History">
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AddParking_Editext_Border">
+        <item name="android:paddingRight">@dimen/size_8</item>
+        <item name="android:paddingLeft">@dimen/size_8</item>
+        <item name="android:background">@drawable/edittext_add_parking</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:theme">@style/EditTextTheme</item>
+    </style>
+
+    <style name="AddParking_Editext_Border_No_Focus">
+        <item name="android:paddingRight">@dimen/size_8</item>
+        <item name="android:paddingLeft">@dimen/size_8</item>
+        <item name="android:background">@drawable/edittext_add_parking</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <style name="item_view_check_in_textview">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <style name="Chitiet_TextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+    </style>
+
+    <style name="Chitiet_TextView_Center">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+    </style>
+
+    <style name="Chitiet_TextView_Blue">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_marginTop">@dimen/size_8</item>
+    </style>
+
+    <style name="AppLoginTheme" parent="Theme.AccountKit">
+        <item name="com_accountkit_title_text_color">#ffffff</item>
+        <item name="com_accountkit_primary_text_color">#ffffff</item>
+        <item name="com_accountkit_primary_color">#ffffff</item>
+        <item name="com_accountkit_status_bar_color">#5c5ca7</item>
+        <item name="com_accountkit_header_text_color">#ffffff</item>
+        <item name="com_accountkit_text_color">#ffffff</item>
+        <item name="com_accountkit_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_text_color">#FFFFFF</item>
+        <item name="com_accountkit_input_border_color">#FFFFFF</item>
+        <item name="com_accountkit_button_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_button_border_color">#ffffff</item>
+        <item name="com_accountkit_header_background_color">#5c5ca7</item>
+        <item name="com_accountkit_background">@mipmap/ic_bgr</item>
+    </style>
+
+    <style name="CheckIn_TextView_Title">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/size_16</item>
+        <item name="android:paddingRight">@dimen/size_16</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CheckIn_TextView_Item">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/size_16</item>
+        <item name="android:paddingRight">@dimen/size_8</item>
+        <item name="android:background">@drawable/button_check_in</item>
+        <item name="android:drawableRight">@drawable/ic_keyboard_arrow_right_black_36dp</item>
+        <item name="android:textColor">@drawable/textview_scan_qr</item>
+    </style>
+
+    <style name="Scanner_TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">@dimen/size_16</item>
+        <item name="android:paddingRight">@dimen/size_16</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <style name="Spinner_Item">
+        <item name="android:paddingLeft">@dimen/size_8</item>
+        <item name="android:paddingRight">@dimen/size_8</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="WhiteCheck" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/btn_fb_plus</item>
+    </style>
+
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextView_CheckOut">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:drawablePadding">@dimen/size_10</item>
+        <item name="android:layout_marginTop">@dimen/size_10</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

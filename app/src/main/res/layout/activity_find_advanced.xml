@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    tools:context=".view.activity.FindAdvancedActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_find"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_38"
+            android:layout_marginBottom="@dimen/size_16"
+            android:layout_marginLeft="@dimen/size_6"
+            android:layout_marginRight="@dimen/size_6"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/chk_find_advanced_oto"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@drawable/custom_checkbox_done"
+                android:gravity="left|center"
+                android:text="@string/oto"
+                android:paddingLeft="@dimen/size_10"
+                android:textColor="@drawable/custom_checkbox_add_text"
+                android:theme="@style/WhiteCheck" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.1" />
+
+            <CheckBox
+                android:id="@+id/chk_find_advanced_xemay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@drawable/custom_checkbox_done"
+                android:gravity="left|center"
+                android:text="@string/xemay"
+                android:paddingLeft="@dimen/size_10"
+                android:textColor="@drawable/custom_checkbox_add_text"
+                android:theme="@style/WhiteCheck" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.1" />
+
+            <CheckBox
+                android:id="@+id/chk_find_advanced_xedap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@drawable/custom_checkbox_done"
+                android:gravity="left|center"
+                android:text="@string/xedap"
+                android:paddingLeft="@dimen/size_10"
+                android:textColor="@drawable/custom_checkbox_add_text"
+                android:theme="@style/WhiteCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_4"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:textColor="@color/gray_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_10"
+                android:layout_weight="1"
+                android:text="@string/price"
+                android:textSize="@dimen/font_13" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.1" />
+
+            <TextView
+                android:id="@+id/tv_price_type"
+                android:textColor="@color/gray_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_10"
+                android:layout_weight="1"
+                android:text="@string/price_type"
+                android:textSize="@dimen/font_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_price"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_40"
+                android:layout_weight="1"
+                android:background="@drawable/custom_edittext_profile"
+                android:paddingLeft="@dimen/size_12"
+                android:paddingRight="@dimen/size_10" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.1" />
+
+            <Spinner
+                android:id="@+id/spinner_price_type"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_40"
+                android:layout_weight="1"
+                android:background="@drawable/custom_edittext_profile"
+                android:paddingLeft="@dimen/size_12"
+                android:paddingRight="@dimen/size_10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_4"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_begin_time"
+                android:textColor="@color/gray_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_10"
+                android:layout_weight="1"
+                android:text="@string/find_begin_time"
+                android:textSize="@dimen/font_13" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.1" />
+
+            <TextView
+                android:id="@+id/tv_expired_time"
+                android:textColor="@color/gray_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_10"
+                android:layout_weight="1"
+                android:text="@string/find_end_time"
+                android:textSize="@dimen/font_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edt_begin_time"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_40"
+                android:layout_weight="1"
+                android:background="@drawable/custom_edittext_profile"
+                android:drawableRight="@drawable/ic_action_begin_time"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:hint="@string/find_begin_time"
+                android:paddingLeft="@dimen/size_12"
+                android:paddingRight="@dimen/size_10"
+                android:textSize="@dimen/font_13"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColorHint="@color/gray_tv" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="0.1" />
+
+            <EditText
+                android:id="@+id/edt_expired_time"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_40"
+                android:layout_weight="1"
+                android:background="@drawable/custom_edittext_profile"
+                android:drawableRight="@drawable/ic_action_end_time"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:hint="@string/find_end_time"
+                android:paddingLeft="@dimen/size_12"
+                android:paddingRight="@dimen/size_10"
+                android:textSize="@dimen/font_13"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColorHint="@color/gray_tv" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_find"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@drawable/btn_purple_no_radius"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="TimKiem"
+        android:text="@string/filter"
+        android:textColor="@android:color/white" />
+</LinearLayout>

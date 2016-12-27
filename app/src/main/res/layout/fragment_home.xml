@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:fitsSystemWindows="true">
+
+    <fragment
+        android:id="@+id/map_parking"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/size_48"
+        tools:context=".view.activity.HomeActivity" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_parking_fillter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/size_64"
+        app:backgroundTint="#00B13F"
+        app:fabSize="normal"
+        app:srcCompat="@mipmap/ic_filter" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_parking_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_my_location_white_36dp" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottom_sheet_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="@dimen/size_110"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <include
+            layout="@layout/fragment_home_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

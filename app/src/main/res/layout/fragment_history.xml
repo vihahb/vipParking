@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/colorLine"
+        android:paddingLeft="@dimen/size_16"
+        android:paddingRight="@dimen/size_16">
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_48"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/day_info"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/img_cal"
+            android:layout_width="@dimen/size_24"
+            android:layout_height="@dimen/size_24"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_calendar_gray" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_tv" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/view_history_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            layout="@layout/layout_progress_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</LinearLayout>
