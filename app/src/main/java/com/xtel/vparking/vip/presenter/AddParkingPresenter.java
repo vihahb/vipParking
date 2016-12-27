@@ -3,8 +3,10 @@ package com.xtel.vparking.vip.presenter;
 import android.Manifest;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.TimePicker;
@@ -87,9 +89,9 @@ public class AddParkingPresenter extends BasicPresenter {
         }
     }
 
-    public void takePicture(FragmentManager fragmentManager, View _view) {
+    public void takePicture(FragmentManager fragmentManager) {
         String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (PermissionHelper.checkListPermission(permission, view.getActivity(), 1001)) {
+        if (PermissionHelper.checkListPermission(permission, view.getActivity(), REQUEST_PERMISSION)) {
             TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(view.getActivity())
                     .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
                         @Override
@@ -487,14 +489,20 @@ public class AddParkingPresenter extends BasicPresenter {
         view.getActivity().finish();
     }
 
-    public void getPhoneNumber() {
-        Intent intent = new Intent(view.getActivity(), AccountKitActivity.class);
-        AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder = new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE, AccountKitActivity.ResponseType.TOKEN);
-        configurationBuilder.setDefaultCountryCode("VN");
-        configurationBuilder.setTitleType(AccountKitActivity.TitleType.APP_NAME);
-        configurationBuilder.setReadPhoneStateEnabled(true);
-        configurationBuilder.setReceiveSMS(true);
-        intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION, configurationBuilder.build());
-        view.startActivityForResult(intent);
+    private final int REQUEST_PERMISSION = 1001;
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, FragmentManager fragmentManager) {
+        if (requestCode == REQUEST_PERMISSION) {
+            boolean check = true;
+            for (int grantresults : grantResults) {
+                if (grantresults == PackageManager.PERMISSION_DENIED) {
+                    check = false;
+                    break;
+                }
+            }
+
+            if (check)
+                takePicture(fragmentManager);
+        }
     }
 }

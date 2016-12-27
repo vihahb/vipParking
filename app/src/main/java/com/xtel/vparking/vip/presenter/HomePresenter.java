@@ -1,5 +1,9 @@
 package com.xtel.vparking.vip.presenter;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+
 import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.callback.RequestNoResultListener;
 import com.xtel.vparking.vip.callback.ResponseHandle;
@@ -11,6 +15,7 @@ import com.xtel.vparking.vip.model.LoginModel;
 import com.xtel.vparking.vip.model.entity.Error;
 import com.xtel.vparking.vip.model.entity.RESP_Parking_Info;
 import com.xtel.vparking.vip.utils.JsonParse;
+import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.utils.SharedPreferencesUtils;
 import com.xtel.vparking.vip.view.activity.inf.HomeView;
 
@@ -22,15 +27,32 @@ import java.io.UnsupportedEncodingException;
 
 public class HomePresenter {
     private HomeView homeView;
+    private final int REQUEST_PERMISSION = 1001;
 
     public HomePresenter(HomeView homeView) {
         this.homeView = homeView;
-        checkGps();
+        checkPermission();
         checkParkingMaster();
     }
 
-    private void checkGps() {
-        NetWorkInfo.checkGPS(homeView.getActivity());
+    private void checkPermission() {
+        if (PermissionHelper.checkOnlyPermission(Manifest.permission.ACCESS_FINE_LOCATION, homeView.getActivity(), REQUEST_PERMISSION))
+            NetWorkInfo.checkGPS(homeView.getActivity());
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSION) {
+            boolean check = true;
+            for (int grantresults : grantResults) {
+                if (grantresults == PackageManager.PERMISSION_DENIED) {
+                    check = false;
+                    break;
+                }
+            }
+
+            if (check)
+                NetWorkInfo.checkGPS(homeView.getActivity());
+        }
     }
 
     private void checkParkingMaster() {

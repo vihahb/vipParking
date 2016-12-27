@@ -1,7 +1,9 @@
 package com.xtel.vparking.vip.view.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -35,6 +37,7 @@ import com.xtel.vparking.vip.commons.NetWorkInfo;
 import com.xtel.vparking.vip.model.entity.Find;
 import com.xtel.vparking.vip.model.entity.PlaceModel;
 import com.xtel.vparking.vip.presenter.HomePresenter;
+import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.utils.SharedPreferencesUtils;
 import com.xtel.vparking.vip.view.activity.inf.HomeView;
 import com.xtel.vparking.vip.view.fragment.CheckedFragment;
@@ -68,7 +71,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
     public static final int RESULT_FIND = 88, REQUEST_CODE = 99, RESULT_GUID = 88;
     public static int PARKING_ID = -1;
-
+    private final int REQUEST_SCAN = 1111;
     public static Find find_option = new Find(-1, -1, -1, "", "");
     public static PlaceModel my_location;
 
@@ -292,6 +295,15 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_SCAN) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                startActivity(ScanQrActivity.class);
+        } else
+            homePresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final int id = item.getItemId();
 
@@ -336,7 +348,8 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.nav_parking_checkin) {
-            startActivity(ScanQrActivity.class);
+            if (PermissionHelper.checkOnlyPermission(Manifest.permission.CAMERA, this, REQUEST_SCAN))
+                startActivity(ScanQrActivity.class);
         } else if (id == R.id.nav_parking_add) {
             if (CURRENT_FRAGMENT.equals(MANAGER_FRAGMENT))
                 startActivityForResult(AddParkingActivity.class, Constants.ADD_PARKING_REQUEST);

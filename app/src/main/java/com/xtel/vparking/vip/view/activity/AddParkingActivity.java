@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -128,7 +129,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     public void TakePicture(View view) {
-        presenter.takePicture(getSupportFragmentManager(), view);
+        presenter.takePicture(getSupportFragmentManager());
     }
 
     public void DeletePicture(View view) {
@@ -444,6 +445,11 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
             presenter.backToManagement(arrayList_picture, arrayList_price);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults, getSupportFragmentManager());
     }
 
     @Override
