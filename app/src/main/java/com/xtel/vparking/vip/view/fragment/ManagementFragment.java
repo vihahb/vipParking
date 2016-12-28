@@ -24,7 +24,7 @@ import com.xtel.vparking.vip.view.widget.ProgressView;
 
 import java.util.ArrayList;
 
-public class ManagementFragment extends BasicFragment implements ManagementView {
+public class ManagementFragment extends IFragment implements ManagementView {
     private ArrayList<ParkingInfo> arrayList;
     private RecyclerView recyclerView;
     private ProgressView progressView;
@@ -56,7 +56,7 @@ public class ManagementFragment extends BasicFragment implements ManagementView 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         arrayList = new ArrayList<>();
-        managementAdapter = new ManagementAdapter(getActivity(), arrayList);
+        managementAdapter = new ManagementAdapter(getActivity(), arrayList, this);
         managementAdapter.setMode(Attributes.Mode.Single);
         recyclerView.setAdapter(managementAdapter);
     }
@@ -129,6 +129,11 @@ public class ManagementFragment extends BasicFragment implements ManagementView 
     public void onGetParkingInfoSuccess(ParkingInfo parkingInfo) {
         managementAdapter.addNewItem(parkingInfo);
         checkListData();
+    }
+
+    @Override
+    public void showQrCode(String url) {
+        super.showQrCode(url);
     }
 
     @Override

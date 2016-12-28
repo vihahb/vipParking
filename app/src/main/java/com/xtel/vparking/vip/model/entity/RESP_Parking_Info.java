@@ -51,6 +51,8 @@ public class RESP_Parking_Info extends RESP_Basic {
     private int favorite;
     @Expose
     private UserInfo parking_owner;
+    @Expose
+    private int owner;
 
     public RESP_Parking_Info() {
     }
@@ -221,5 +223,13 @@ public class RESP_Parking_Info extends RESP_Basic {
 
     public void setParking_phone(String parking_phone) {
         this.parking_phone = parking_phone;
+    }
+
+    public int getOwner() {
+        return owner;
+    }
+
+    public void setOwner(int owner) {
+        this.owner = owner;
     }
 }

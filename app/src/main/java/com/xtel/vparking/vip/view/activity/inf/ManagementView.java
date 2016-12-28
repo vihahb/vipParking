@@ -17,5 +17,6 @@ public interface ManagementView {
     void onGetParkingByUserSuccess(ArrayList<ParkingInfo> arrayList);
     void onGetParkingByUserError(Error error);
     void onGetParkingInfoSuccess(ParkingInfo parkingInfo);
+    void showQrCode(String url);
     Activity getActivity();
 }
