@@ -52,8 +52,6 @@ public class HomePresenter {
 
             if (check)
                 NetWorkInfo.checkGPS(homeView.getActivity());
-            else
-                homeView.showShortToast(homeView.getActivity().getString(R.string.error_permission));
         }
     }
 
