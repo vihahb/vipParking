@@ -1,8 +1,10 @@
 package com.xtel.vparking.vip.view.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +20,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.NestedScrollView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -327,8 +330,8 @@ public class HomeFragment extends IFragment implements
     @SuppressWarnings("deprecation")
     @Override
     public void onMapLongClick(LatLng latLng) {
-        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_marker_my_location);
-        Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), 60, 60, true);
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_current_location_big);
+        Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)),  ((int) convertDpToPixel(15)), true);
         if (pickMarker != null)
             pickMarker.remove();
 
@@ -339,6 +342,12 @@ public class HomeFragment extends IFragment implements
 
         if (!isFindMyLocation)
             isFindMyLocation = true;
+    }
+
+    public float convertDpToPixel(float dp) {
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * (metrics.densityDpi / 160f);
     }
 
     @Override
