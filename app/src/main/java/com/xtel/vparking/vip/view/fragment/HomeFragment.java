@@ -58,7 +58,7 @@ import com.xtel.vparking.vip.view.activity.inf.HomeFragmentView;
 import java.util.ArrayList;
 
 /**
- * Created by Lê Công Long Vũ on 11/15/2013.
+ * Created by Lê Công Long Vũ on 11/15/2013
  */
 
 public class HomeFragment extends BasicFragment implements
@@ -83,7 +83,6 @@ public class HomeFragment extends BasicFragment implements
 
     public BottomSheet dialogBottomSheet;
     private RESP_Parking_Info resp_parking_info;
-
     private int actionType = -1;
 
     @Nullable
@@ -253,7 +252,6 @@ public class HomeFragment extends BasicFragment implements
     private void showDialogParkingDetail() {
         hideFloatingActionButton(fab_filter);
         hideFloatingActionButton(fab_location);
-//        hideFloatingActionButton(fab_thongbao);
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         dialogBottomSheet.initData(resp_parking_info);
@@ -332,6 +330,9 @@ public class HomeFragment extends BasicFragment implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
+        if (!isFindMyLocation)
+            isFindMyLocation = true;
+
         if (isCanLoadMap) {
             if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -409,6 +410,8 @@ public class HomeFragment extends BasicFragment implements
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (!isFindMyLocation) {
+            isFindMyLocation = true;
+
             actionType = 1;
             presenter.getMyLocation();
         }

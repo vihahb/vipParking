@@ -1,7 +1,9 @@
 package com.xtel.vparking.vip.view.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -34,6 +36,7 @@ import com.xtel.vparking.vip.model.entity.PlaceModel;
 import com.xtel.vparking.vip.model.entity.Prices;
 import com.xtel.vparking.vip.presenter.AddParkingPresenter;
 import com.xtel.vparking.vip.utils.JsonParse;
+import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.view.activity.inf.AddParkingView;
 import com.xtel.vparking.vip.view.adapter.AddParkingAdapter;
 import com.xtel.vparking.vip.view.adapter.PriceAdapter;
@@ -43,7 +46,7 @@ import com.xtel.vparking.vip.view.widget.BitmapTransform;
 import java.util.ArrayList;
 
 /**
- * Created by Lê Công Long Vũ on 11/28/2016.
+ * Created by Lê Công Long Vũ on 11/28/2016
  */
 
 public class AddParkingActivity extends BasicActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, AddParkingView {
@@ -150,7 +153,8 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         int id = v.getId();
 
         if (id == R.id.edt_add_parking_diachi) {
-            startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
+            if (PermissionHelper.checkOnlyPermission(Manifest.permission.CAMERA, this, REQUEST_LOCATION))
+                startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
         } else if (id == R.id.edt_add_parking_begin_time) {
             presenter.getTime(true);
         } else if (id == R.id.edt_add_parking_end_time) {
@@ -449,7 +453,13 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults, getSupportFragmentManager());
+        if (requestCode == REQUEST_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
+            else
+                showShortToast(getString(R.string.error_permission));
+        } else
+            presenter.onRequestPermissionsResult(requestCode, permissions, grantResults, getSupportFragmentManager());
     }
 
     @Override

@@ -166,11 +166,13 @@ public abstract class BasicActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();
+        if (dialog != null)
+            dialog.show();
     }
 
     public void closeDialog() {
-        dialog.dismiss();
+        if (dialog != null)
+            dialog.dismiss();
     }
 
     //    Khởi chạy fragment giao diện và add vào stack
