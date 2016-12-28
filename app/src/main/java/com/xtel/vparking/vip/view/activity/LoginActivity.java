@@ -1,14 +1,17 @@
 package com.xtel.vparking.vip.view.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +20,7 @@ import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.commons.NetWorkInfo;
 import com.xtel.vparking.vip.model.entity.Error;
 import com.xtel.vparking.vip.presenter.LoginPresenter;
+import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.view.activity.inf.LoginView;
 
 /**
@@ -25,6 +29,10 @@ import com.xtel.vparking.vip.view.activity.inf.LoginView;
 
 public class LoginActivity extends BasicActivity implements LoginView, View.OnClickListener {
 
+    private final int MY_REQUEST_CODE = 1001;
+    private final int FB_REQUEST_CODE = 1003;
+    String[] PermissionListAccKit = {Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS, Manifest.permission.READ_PHONE_STATE};
+    String[] PermissionListFb = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private Button btn_signin, btn_Facebook_login;
     private LoginPresenter presenter;
 
@@ -34,7 +42,6 @@ public class LoginActivity extends BasicActivity implements LoginView, View.OnCl
         setContentView(R.layout.activity_main);
         presenter = new LoginPresenter(this);
         presenter.createCallBackManager(this);
-        presenter.initPermission(getApplicationContext(), this);
         initView();
     }
 
@@ -97,15 +104,49 @@ public class LoginActivity extends BasicActivity implements LoginView, View.OnCl
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_fb_signin) {
-            checkNetWork(LoginActivity.this, 1 , v);
+            checkNetWork(LoginActivity.this, 1);
         } else if (id == R.id.btn_Signin) {
-            checkNetWork(LoginActivity.this, 2, v);
+            checkNetWork(LoginActivity.this, 2);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        presenter.requestPermission(getApplicationContext(), requestCode, permissions, grantResults);
+        if (requestCode == MY_REQUEST_CODE) {
+            Log.e("size permission:", String.valueOf(grantResults.length));
+
+            boolean chk = true;
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    chk = false;
+                    break;
+                }
+            }
+
+            if (chk) {
+                presenter.getDeviceData(getApplicationContext());
+                presenter.initOnLoginAccountKit(this, AccountKitActivity.class);
+                showShortToast(getActivity().getString(R.string.permission_checked));
+            } else
+                showShortToast(getActivity().getString(R.string.permission_not_check));
+        } else if (requestCode == FB_REQUEST_CODE) {
+            Log.e("size permission:", String.valueOf(grantResults.length));
+
+            boolean chk_fb = true;
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    chk_fb = false;
+                    break;
+                }
+            }
+
+            if (chk_fb) {
+                presenter.getDeviceData(this);
+                presenter.initOnLoginFacebook(this);
+                showShortToast(getActivity().getString(R.string.permission_checked));
+            } else
+                showShortToast(getActivity().getString(R.string.permission_not_check));
+        }
     }
 
     @Override
@@ -126,7 +167,7 @@ public class LoginActivity extends BasicActivity implements LoginView, View.OnCl
         presenter.showConfirmExitApp();
     }
 
-    private void checkNetWork(final Context context, int type, View view){
+    private void checkNetWork(final Context context, int type) {
         if (!NetWorkInfo.isOnline(context)){
             AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.TimePicker);
             dialog.setTitle("Kết nối không thành công");
@@ -152,9 +193,15 @@ public class LoginActivity extends BasicActivity implements LoginView, View.OnCl
             dialog.show();
         } else {
             if (type == 1) {
-                presenter.initOnLoginFacebook(this);
+                if (PermissionHelper.checkListPermission(PermissionListFb, this, FB_REQUEST_CODE)) {
+                    Log.v("acc", "fb");
+                    presenter.initOnLoginFacebook(this);
+                }
             } else if (type == 2){
-                presenter.initOnLoginAccountKit(this, AccountKitActivity.class, view);
+                if (PermissionHelper.checkListPermission(PermissionListAccKit, this, MY_REQUEST_CODE)) {
+                    Log.v("acc", "kit");
+                    presenter.initOnLoginAccountKit(this, AccountKitActivity.class);
+                }
             }
         }
     }
