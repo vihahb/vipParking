@@ -52,22 +52,16 @@ import gun0912.tedbottompicker.TedBottomPicker;
  */
 
 public class ProfileActivitys extends BasicActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, ProfileView {
-    private EditText edt_fname, edt_email, edt_ngaysinh, edt_phone;
-    private Spinner spinner_gender;
-    private Button btnUpdate, btn_clear, btn_clear_email;
-    ImageView img_avatar, img_change_avatar, img_update_phone;
-
     //Spinner Properties
     public static String[] gender_spinner = {"Nam", "Nữ", "Khác"};
+    private final int CAMERA_REQUEST_CODE = 1002;
+    ImageView img_avatar, img_change_avatar, img_update_phone;
     ArrayAdapter<String> arrayAdapter;
-
     ProfilePresenter profilePresenter;
-
     int year_fill, month_fill, dayOfMonthfill;
     Calendar calendar;
     Date date;
     DatePickerDialog pickerDialog;
-
     //Uer Infomation
     String avatar;
     String full_name;
@@ -79,15 +73,15 @@ public class ProfileActivitys extends BasicActivity implements View.OnClickListe
     String birthday;
     String qr_code;
     String bar_code;
-
     //update info
     String full_name_update;
     String email_update;
     String birthday_update;
     String phone_update;
-
-    private final int CAMERA_REQUEST_CODE = 1002;
     String[] permission = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private EditText edt_fname, edt_email, edt_ngaysinh, edt_phone;
+    private Spinner spinner_gender;
+    private Button btnUpdate, btn_clear, btn_clear_email;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -177,24 +171,21 @@ public class ProfileActivitys extends BasicActivity implements View.OnClickListe
         if (full_name != null && full_name != "") {
             edt_fname.setText(full_name);
         } else {
-            full_name = "Chưa có tên";
-            edt_fname.setHint(full_name);
+            edt_fname.setHint("Chưa có tên");
         }
 
         //Email
         if (email != null && email != "") {
             edt_email.setText(email);
         } else {
-            email = "Chưa có email";
-            edt_email.setHint(email);
+            edt_email.setHint("Chưa có email");
         }
 
         //phone
         if (phone != null && phone != "") {
             edt_phone.setText(phone);
         } else {
-            phone = "Chưa có số điện thoại";
-            edt_phone.setHint(phone);
+            edt_phone.setHint("Chưa có số điện thoại");
         }
 
         //birthady
@@ -216,8 +207,7 @@ public class ProfileActivitys extends BasicActivity implements View.OnClickListe
             Log.e("month:", String.valueOf(month_fill));
             Log.e("day:", String.valueOf(dayOfMonthfill));
         } else {
-            birthday = "Chưa có ngày sinh";
-            edt_ngaysinh.setHint(birthday);
+            edt_ngaysinh.setHint("Chưa có ngày sinh");
             calendar.getTime();
             year_fill = calendar.get(Calendar.YEAR);
             month_fill = calendar.get(Calendar.MONTH);
