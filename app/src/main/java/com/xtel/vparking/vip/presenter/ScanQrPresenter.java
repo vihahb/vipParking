@@ -35,6 +35,7 @@ public class ScanQrPresenter extends BasicPresenter {
                 @Override
                 public void onSuccess(RESP_Verhicle_List obj) {
                     arrayList = obj.getData();
+
                     if (arrayList.size() > 0) {
                         Collections.sort(arrayList, new Comparator<Verhicle>() {
                             @Override
@@ -46,10 +47,12 @@ public class ScanQrPresenter extends BasicPresenter {
                                 }
                             }
                         });
+                    } else {
+                        arrayList = new ArrayList<>();
+                        arrayList.add(new Verhicle(-1, "", 4, "Bạn không có xe nào", "", 2, null));
+                    }
 
-                        view.onGetVerhicleSuccess(obj.getData());
-                    } else
-                        view.onGetVerhicleError(new Error(5555, "error", view.getActivity().getString(R.string.error)));
+                    view.onGetVerhicleSuccess(obj.getData());
                 }
 
                 @Override
@@ -73,6 +76,10 @@ public class ScanQrPresenter extends BasicPresenter {
     }
 
     public void startCheckIn(int position, String gift_code, String content) {
+        if (arrayList.get(position).getId() == -1) {
+            return;
+        }
+
         view.onStartChecking();
         String url = Constants.SERVER_PARKING + Constants.PARKING_CHECK_IN;
         String session = LoginModel.getInstance().getSession();
