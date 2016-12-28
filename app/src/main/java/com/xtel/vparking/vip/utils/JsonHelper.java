@@ -2,14 +2,9 @@ package com.xtel.vparking.vip.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Mr. M.2 on 12/2/2016.
+ * Created by Lê Công Long Vũ on 12/2/2016.
  */
 
 public class JsonHelper {

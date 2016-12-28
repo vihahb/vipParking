@@ -503,6 +503,8 @@ public class AddParkingPresenter extends BasicPresenter {
 
             if (check)
                 takePicture(fragmentManager);
+            else
+                view.showShortToast(view.getActivity().getString(R.string.error_permission));
         }
     }
 }
