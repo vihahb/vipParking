@@ -304,11 +304,16 @@ public class HomeFragment extends BasicFragment implements
         mMap.setOnMapClickListener(this);
         mMap.setOnCameraIdleListener(this);
 
-        if (checkPermission()) {
-            mMap.getUiSettings().setMapToolbarEnabled(false);
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        }
+        setMapSetting();
+    }
+
+    public void setMapSetting() {
+        if (mMap != null)
+            if (checkPermission()) {
+                mMap.getUiSettings().setMapToolbarEnabled(false);
+                mMap.setMyLocationEnabled(true);
+                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            }
     }
 
     @SuppressWarnings("deprecation")
@@ -410,7 +415,6 @@ public class HomeFragment extends BasicFragment implements
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (!isFindMyLocation) {
-            isFindMyLocation = true;
 
             actionType = 1;
             presenter.getMyLocation();

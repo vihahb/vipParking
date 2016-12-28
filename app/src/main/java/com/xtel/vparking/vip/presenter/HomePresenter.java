@@ -50,8 +50,10 @@ public class HomePresenter {
                 }
             }
 
-            if (check)
+            if (check) {
+                homeView.onSetMapSetting();
                 NetWorkInfo.checkGPS(homeView.getActivity());
+            }
         }
     }
 
