@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.xtel.vparking.vip.callback.RequestNoResultListener;
@@ -93,6 +94,7 @@ public class GetNewSession {
                 activity.finishAffinity();
                 Intent intent = new Intent(activity, LoginActivity.class);
                 activity.startActivity(intent);
+                Toast.makeText(activity, "Lấy phiên mới thất bại. Vui lòng đăng nhập lại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
