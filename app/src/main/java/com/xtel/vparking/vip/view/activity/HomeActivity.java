@@ -35,7 +35,6 @@ import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.commons.NetWorkInfo;
 import com.xtel.vparking.vip.model.entity.Find;
-import com.xtel.vparking.vip.model.entity.PlaceModel;
 import com.xtel.vparking.vip.presenter.HomePresenter;
 import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.utils.SharedPreferencesUtils;
@@ -47,7 +46,7 @@ import com.xtel.vparking.vip.view.fragment.ManagementFragment;
 import com.xtel.vparking.vip.view.fragment.VerhicleFragment;
 
 /**
- * Created by Lê Công Long Vũ on 12/2/2016.
+ * Created by Lê Công Long Vũ on 12/2/2016
  */
 
 public class HomeActivity extends IActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
@@ -73,7 +72,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     public static int PARKING_ID = -1;
     private final int REQUEST_SCAN = 1111;
     public static Find find_option = new Find(-1, -1, -1, "", "");
-    public static PlaceModel my_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +83,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         initNavigation();
         initListener();
 
-        my_location = new PlaceModel(null, 21.026529, 105.831361);
         replaceHomeFragment();
         homePresenter = new HomePresenter(this);
         view = this;

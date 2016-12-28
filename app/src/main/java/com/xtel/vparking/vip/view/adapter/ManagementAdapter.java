@@ -19,6 +19,7 @@ import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.model.entity.ParkingInfo;
 import com.xtel.vparking.vip.view.activity.AddParkingActivity;
 import com.xtel.vparking.vip.view.activity.ViewParkingActivity;
+import com.xtel.vparking.vip.view.activity.inf.ManagementView;
 import com.xtel.vparking.vip.view.fragment.ManagementFragment;
 
 import java.util.ArrayList;
@@ -30,10 +31,12 @@ import java.util.ArrayList;
 public class ManagementAdapter extends RecyclerSwipeAdapter<ManagementAdapter.ViewHolder> {
     private Activity activity;
     private ArrayList<ParkingInfo> arrayList;
+    private ManagementView view;
 
-    public ManagementAdapter(Activity activity, ArrayList<ParkingInfo> arrayList) {
+    public ManagementAdapter(Activity activity, ArrayList<ParkingInfo> arrayList,ManagementView view) {
         this.activity = activity;
         this.arrayList = arrayList;
+        this.view = view;
     }
 
     @Override
@@ -64,6 +67,13 @@ public class ManagementAdapter extends RecyclerSwipeAdapter<ManagementAdapter.Vi
         holder.txt_name.setText(parkingInfo.getParking_name());
         holder.txt_address.setText(parkingInfo.getAddress());
         setStatus(holder.txt_empty, parkingInfo.getEmpty_number());
+
+        holder.img_qr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.showQrCode(parkingInfo.getQr_code());
+            }
+        });
 
         holder.img_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +129,7 @@ public class ManagementAdapter extends RecyclerSwipeAdapter<ManagementAdapter.Vi
         private SwipeLayout swipeLayout;
         private LinearLayout layout_content;
         private ImageView img_avatar;
-        private ImageButton img_view, img_update;
+        private ImageButton img_view, img_update, img_qr;
         private TextView txt_name, txt_address, txt_empty;
 
         ViewHolder(View itemView) {
@@ -132,6 +142,7 @@ public class ManagementAdapter extends RecyclerSwipeAdapter<ManagementAdapter.Vi
             txt_address = (TextView) itemView.findViewById(R.id.txt_item_management_address);
             txt_empty = (TextView) itemView.findViewById(R.id.txt_item_management_empty);
 
+            img_qr = (ImageButton) itemView.findViewById(R.id.item_management_img_qr);
             img_view = (ImageButton) itemView.findViewById(R.id.item_management_img_view);
             img_update = (ImageButton) itemView.findViewById(R.id.item_management_img_update);
         }

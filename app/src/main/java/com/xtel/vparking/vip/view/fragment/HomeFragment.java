@@ -1,8 +1,10 @@
 package com.xtel.vparking.vip.view.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +20,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.NestedScrollView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +64,7 @@ import java.util.ArrayList;
  * Created by Lê Công Long Vũ on 11/15/2013
  */
 
-public class HomeFragment extends BasicFragment implements
+public class HomeFragment extends IFragment implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener, GoogleMap.OnMapLongClickListener, LocationListener, View.OnClickListener,
         GoogleMap.OnCameraIdleListener, GoogleMap.OnMapClickListener, HomeFragmentView {
@@ -231,6 +234,14 @@ public class HomeFragment extends BasicFragment implements
             }
         });
 
+        dialogBottomSheet.onShowQrClicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (resp_parking_info.getQr_code() != null)
+                    showQrCode(resp_parking_info.getQr_code());
+            }
+        });
+
         dialogBottomSheet.onCloseClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,7 +309,7 @@ public class HomeFragment extends BasicFragment implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(HomeActivity.my_location.getLatitude(), HomeActivity.my_location.getLongtitude()), 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Constants.my_location.getLatitude(), Constants.my_location.getLongtitude()), 15));
         mMap.setOnMarkerClickListener(this);
         mMap.setOnMapLongClickListener(this);
         mMap.setOnMapClickListener(this);
@@ -319,8 +330,8 @@ public class HomeFragment extends BasicFragment implements
     @SuppressWarnings("deprecation")
     @Override
     public void onMapLongClick(LatLng latLng) {
-        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_marker_my_location);
-        Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), 60, 60, true);
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_current_location_big);
+        Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)),  ((int) convertDpToPixel(15)), true);
         if (pickMarker != null)
             pickMarker.remove();
 
@@ -331,6 +342,12 @@ public class HomeFragment extends BasicFragment implements
 
         if (!isFindMyLocation)
             isFindMyLocation = true;
+    }
+
+    public float convertDpToPixel(float dp) {
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * (metrics.densityDpi / 160f);
     }
 
     @Override
@@ -374,8 +391,8 @@ public class HomeFragment extends BasicFragment implements
         double latitude = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().latitude;
         double longtitude = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().longitude;
 
-        HomeActivity.my_location.setLatitude(latitude);
-        HomeActivity.my_location.setLongtitude(longtitude);
+        Constants.my_location.setLatitude(latitude);
+        Constants.my_location.setLongtitude(longtitude);
         if (isCanLoadMap) {
             isCanLoadMap = false;
 
@@ -450,6 +467,7 @@ public class HomeFragment extends BasicFragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         presenter.destroyView();
         super.onDestroy();
     }
@@ -588,9 +606,16 @@ public class HomeFragment extends BasicFragment implements
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng())));
 
-        Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_blue)));
+        Marker marker;
+        if (resp_parking_info.getOwner() == 0) {
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_blue)));
+        } else {
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_red)));
+        }
 
         markerList.add(new MarkerModel(marker, resp_parking_info.getId()));
 
@@ -614,7 +639,6 @@ public class HomeFragment extends BasicFragment implements
                 int total = markerList.size() - 1;
 
                 for (int i = (arrayList.size() - 1); i >= 0; i--) {
-                    Log.e(this.getClass().getSimpleName(), "item " + i);
 
                     if (arrayList.get(i).getOwner() == 0) {
                         Marker marker = mMap.addMarker(new MarkerOptions()
@@ -649,7 +673,6 @@ public class HomeFragment extends BasicFragment implements
     @Override
     public void onGetParkingAroundError(Error error) {
         isCanLoadMap = true;
-        debug("Lỗi mịa r");
     }
 
     @Override
@@ -661,9 +684,14 @@ public class HomeFragment extends BasicFragment implements
         dialogBottomSheet.changeFavoriteToClose();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_blue)));
+        if (resp_parking_info.getOwner() == 0)
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_blue)));
+        else
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_red)));
 
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 

@@ -15,6 +15,16 @@
         android:tag="Bottom3">
 
         <ImageButton
+            android:id="@+id/item_management_img_qr"
+            android:layout_width="@dimen/size_90"
+            android:layout_height="match_parent"
+            android:background="#836088"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@mipmap/ic_check_in" />
+
+        <ImageButton
             android:id="@+id/item_management_img_view"
             android:layout_width="@dimen/size_90"
             android:layout_height="match_parent"
