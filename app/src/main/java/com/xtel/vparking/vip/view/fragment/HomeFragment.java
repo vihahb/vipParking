@@ -280,8 +280,8 @@ public class HomeFragment extends IFragment implements
     @SuppressWarnings("deprecation")
     public void searchPlace(Place place) {
         if (mMap != null) {
-            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_marker_my_location);
-            Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), 60, 60, true);
+            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_current_location_big);
+            Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)),  ((int) convertDpToPixel(15)), true);
             if (pickMarker != null)
                 pickMarker.remove();
 
