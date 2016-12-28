@@ -16,6 +16,8 @@ import com.xtel.vparking.vip.utils.JsonHelper;
 import com.xtel.vparking.vip.view.activity.inf.ScanQrView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Lê Công Long Vũ on 12/3/2016.
@@ -33,10 +35,21 @@ public class ScanQrPresenter extends BasicPresenter {
                 @Override
                 public void onSuccess(RESP_Verhicle_List obj) {
                     arrayList = obj.getData();
-                    if (arrayList.size() > 0)
+                    if (arrayList.size() > 0) {
+                        Collections.sort(arrayList, new Comparator<Verhicle>() {
+                            @Override
+                            public int compare(Verhicle lhs, Verhicle rhs) {
+                                try {
+                                    return String.valueOf(lhs.getFlag_default()).compareTo(String.valueOf(rhs.getFlag_default()));
+                                } catch (Exception e) {
+                                    throw new IllegalArgumentException(e);
+                                }
+                            }
+                        });
+
                         view.onGetVerhicleSuccess(obj.getData());
-                    else
-                        view.onGetVerhicleError(new Error(-1, "error", view.getActivity().getString(R.string.error)));
+                    } else
+                        view.onGetVerhicleError(new Error(5555, "error", view.getActivity().getString(R.string.error)));
                 }
 
                 @Override
