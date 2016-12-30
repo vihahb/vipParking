@@ -3,6 +3,7 @@ package com.xtel.vparking.vip.view.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ public class ChooseMapsActivity extends BasicActivity implements OnMapReadyCallb
     private Marker marker;
     private PlaceModel placeModel;
     private ChooseMapsPresenter presenter;
+    private FloatingActionButton fab_mylocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,9 @@ public class ChooseMapsActivity extends BasicActivity implements OnMapReadyCallb
     private void initView() {
         Button btn_choose_location = (Button) findViewById(R.id.btn_map_choose_location);
         btn_choose_location.setOnClickListener(this);
+
+        fab_mylocation = (FloatingActionButton) findViewById(R.id.fab_my_location);
+        fab_mylocation.setOnClickListener(this);
     }
 
     private void initSearchView() {
@@ -109,6 +114,8 @@ public class ChooseMapsActivity extends BasicActivity implements OnMapReadyCallb
             } else {
                 showShortToast("Vui lòng chọn địa chỉ");
             }
+        } else if (v.getId() == R.id.fab_my_location) {
+            presenter.getMyLocation();
         }
     }
 
@@ -124,8 +131,8 @@ public class ChooseMapsActivity extends BasicActivity implements OnMapReadyCallb
 
         if (id == android.R.id.home)
             finish();
-        else if (id == R.id.nav_choose_map)
-            presenter.getMyLocation();
+//        else if (id == R.id.nav_choose_map)
+
         return super.onOptionsItemSelected(item);
     }
 
