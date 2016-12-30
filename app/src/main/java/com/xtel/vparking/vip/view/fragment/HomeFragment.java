@@ -270,9 +270,15 @@ public class HomeFragment extends IFragment implements
         if (actionType == 3)
             dialogBottomSheet.changeFavoriteToClose();
 
-        mMap_bottom.addMarker(new MarkerOptions()
-                .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_blue)));
+        if (resp_parking_info.getOwner() == 0) {
+            mMap_bottom.addMarker(new MarkerOptions()
+                    .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_blue)));
+        } else {
+            mMap_bottom.addMarker(new MarkerOptions()
+                    .position(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_red)));
+        }
 
         mMap_bottom.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(resp_parking_info.getLat(), resp_parking_info.getLng()), 15));
     }
