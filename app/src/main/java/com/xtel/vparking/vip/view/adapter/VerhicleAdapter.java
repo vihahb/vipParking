@@ -124,15 +124,15 @@ public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private void insertItem(Verhicle verhicle) {
+        if (verhicle.getFlag_default() == 1)
+            clearDefault(verhicle);
+
         for (int i = (arrayList.size() - 1); i > 0; i--) {
             if (arrayList.get(i).getType() == verhicle.getType()) {
                 int pos = i + 1;
                 arrayList.add(pos, verhicle);
                 notifyItemInserted(pos);
                 notifyItemChanged(pos, getItemCount());
-
-                if (arrayList.get(pos).getFlag_default() == 1)
-                    clearDefault(verhicle);
                 return;
             }
         }
