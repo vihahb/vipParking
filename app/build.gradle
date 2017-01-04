@@ -11,9 +11,9 @@ android {
     //noinspection GradleDependency
     buildToolsVersion "25.0.0"
     defaultConfig {
-        jackOptions {
-            enabled true
-        }
+//        jackOptions {
+//            enabled true
+//        }
         applicationId "com.xtel.vparking.vip"
         minSdkVersion 16
         targetSdkVersion 24
@@ -27,10 +27,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
