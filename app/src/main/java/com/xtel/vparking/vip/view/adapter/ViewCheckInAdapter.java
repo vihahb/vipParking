@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,11 +48,11 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             final ParkingCheckIn checkIn = arrayList.get(position);
 
             if (checkIn.getCheckin_type() == 1) {
-                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_car_black, 0, 0, 0);
+                view.img_icon.setImageResource(R.drawable.ic_action_car);
             } else if (checkIn.getCheckin_type() == 2) {
-                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_moto_black, 0, 0, 0);
+                view.img_icon.setImageResource(R.drawable.ic_action_moto);
             } else {
-                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_bike_black, 0, 0, 0);
+                view.img_icon.setImageResource(R.drawable.ic_action_bike);
             }
 
             view.txt_name.setText(checkIn.getUser().getFullname());
@@ -97,12 +98,13 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_icon, txt_name, txt_time, txt_phone, txt_plate_number;
+        private TextView txt_name, txt_time, txt_phone, txt_plate_number;
+        private ImageView img_icon;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            txt_icon = (TextView) itemView.findViewById(R.id.item_txt_view_check_in_icon);
+            img_icon = (ImageView) itemView.findViewById(R.id.item_img_view_check_in_icon);
             txt_time = (TextView) itemView.findViewById(R.id.item_txt_view_check_in_time);
             txt_name = (TextView) itemView.findViewById(R.id.item_txt_view_check_in_name);
             txt_phone = (TextView) itemView.findViewById(R.id.item_txt_view_check_in_phone);
@@ -122,15 +124,5 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void setLoadMore(boolean isLoad) {
         isLoadMore = isLoad;
-    }
-
-    public boolean isLoadMore() {
-        return isLoadMore;
-    }
-
-    public void removeItem(int position) {
-        arrayList.remove(position);
-        notifyItemRemoved(position);
-        notifyItemChanged(position, getItemCount());
     }
 }

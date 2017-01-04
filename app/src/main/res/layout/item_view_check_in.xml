@@ -13,10 +13,12 @@
     android:paddingRight="@dimen/size_16"
     android:paddingTop="@dimen/size_8">
 
-    <TextView
-        android:id="@+id/item_txt_view_check_in_icon"
+    <ImageView
+        android:id="@+id/item_img_view_check_in_icon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter" />
 
     <LinearLayout
         android:layout_width="0dp"
