@@ -140,7 +140,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         Intent[] intents = new Intent[]{cameraIntent};
 
         //Create a choose from your first intent then pass in the intent array
-        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ");
+        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ảnh");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
         startActivityForResult(chooserIntent, 101);
     }
