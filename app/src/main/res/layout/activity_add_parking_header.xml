@@ -36,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/size_48"
         android:layout_gravity="bottom|end|right"
+        android:onClick="TakePicture"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
         android:drawableLeft="@mipmap/ic_camera_white"

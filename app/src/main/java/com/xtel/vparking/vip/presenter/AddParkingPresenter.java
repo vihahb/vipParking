@@ -34,6 +34,7 @@ import com.xtel.vparking.vip.model.entity.RESP_Parking_Info;
 import com.xtel.vparking.vip.utils.JsonHelper;
 import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.utils.Task;
+import com.xtel.vparking.vip.view.MyApplication;
 import com.xtel.vparking.vip.view.activity.inf.AddParkingView;
 import com.xtel.vparking.vip.view.fragment.ManagementFragment;
 
@@ -90,19 +91,20 @@ public class AddParkingPresenter extends BasicPresenter {
     }
 
     public void takePicture(FragmentManager fragmentManager) {
-        String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (PermissionHelper.checkListPermission(permission, view.getActivity(), REQUEST_PERMISSION)) {
-            TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(view.getActivity())
-                    .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
-                        @Override
-                        public void onImageSelected(final Uri uri) {
-                            view.onTakePictureSuccess(uri);
-                        }
-                    })
-                    .setPeekHeight(view.getActivity().getResources().getDisplayMetrics().heightPixels / 2)
-                    .create();
-            bottomSheetDialogFragment.show(fragmentManager);
-        }
+        String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (!PermissionHelper.checkListPermission(permission, view.getActivity(), REQUEST_PERMISSION))
+            return;
+
+        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(MyApplication.context)
+                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(Uri uri) {
+                        view.onTakePictureSuccess(uri);
+                    }
+                })
+                .setPeekHeight(view.getActivity().getResources().getDisplayMetrics().heightPixels / 2)
+                .create();
+        bottomSheetDialogFragment.show(fragmentManager);
     }
 
     public void postImage(Bitmap bitmap) {
@@ -222,8 +224,7 @@ public class AddParkingPresenter extends BasicPresenter {
             view.onValidateError(_view, view.getActivity().getString(R.string.loi_phone_empty));
         } else if (phone.length() < 10 || phone.length() > 11) {
             view.onValidateError(_view, view.getActivity().getString(R.string.loi_phone));
-        }
-        else if (!checkListPrice(arrayList_price)) {
+        } else if (!checkListPrice(arrayList_price)) {
             view.onValidateError(_view, view.getActivity().getString(R.string.error_choose_money_price));
         } else {
             if (!NetWorkInfo.isOnline(view.getActivity())) {

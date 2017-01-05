@@ -14,7 +14,7 @@ import com.xtel.vparking.vip.view.MyApplication;
 import org.json.JSONObject;
 
 /**
- * Created by Lê Công Long Vũ on 11/9/2016.
+ * Created by Lê Công Long Vũ on 11/9/2016
  */
 
 public class JsonParse {

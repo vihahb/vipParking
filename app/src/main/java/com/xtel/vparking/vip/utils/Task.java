@@ -2,71 +2,31 @@ package com.xtel.vparking.vip.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.xtel.vparking.vip.R;
-import com.xtel.vparking.vip.callback.RequestNoResultListener;
 import com.xtel.vparking.vip.callback.RequestWithStringListener;
 import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.model.entity.Error;
-import com.xtel.vparking.vip.view.MyApplication;
-import com.xtel.vparking.vip.callback.RequestWithStringListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import gun0912.tedbottompicker.TedBottomPicker;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * Created by Lê Công Long Vũ on 12/1/2016.
  */
 
 public class Task {
-    public static void TakeBigPicture(final Context context, FragmentManager fragmentManager, final boolean isBigImage, final RequestWithStringListener requestWithStringListener) {
-        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(context)
-                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
-                    @Override
-                    public void onImageSelected(final Uri uri) {
-                        Log.e("tb_uri", "uri: " + uri);
-                        Log.e("tb_path", "uri.getPath(): " + uri.getPath());
-
-                        File file = new File(uri.getPath());
-                        Log.e("tb_path_file", "path: " + file.getPath());
-
-                        final Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                new ConvertImage(context, isBigImage, requestWithStringListener).execute(bitmap);
-                            }
-                        }, 500);
-                    }
-                })
-                .setPeekHeight(context.getResources().getDisplayMetrics().heightPixels / 2)
-                .create();
-
-        bottomSheetDialogFragment.show(fragmentManager);
-    }
-
     public static class ConvertImage extends AsyncTask<Bitmap, Void, File> {
-        //        private DialogProgressBar dialogProgressBar;
         private Context context;
         private boolean isBigImage;
         private RequestWithStringListener requestWithStringListener;

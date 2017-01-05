@@ -5,10 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
@@ -24,8 +24,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.commons.NetWorkInfo;
@@ -41,8 +39,8 @@ import com.xtel.vparking.vip.view.activity.inf.AddParkingView;
 import com.xtel.vparking.vip.view.adapter.AddParkingAdapter;
 import com.xtel.vparking.vip.view.adapter.PriceAdapter;
 import com.xtel.vparking.vip.view.fragment.ManagementFragment;
-import com.xtel.vparking.vip.view.widget.BitmapTransform;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -132,7 +130,19 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     public void TakePicture(View view) {
-        presenter.takePicture(getSupportFragmentManager());
+        final Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryIntent.setType("image/*");
+
+        //Create any other intents you want
+        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        //Add them to an intent array
+        Intent[] intents = new Intent[]{cameraIntent};
+
+        //Create a choose from your first intent then pass in the intent array
+        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
+        startActivityForResult(chooserIntent, 101);
     }
 
     public void DeletePicture(View view) {
@@ -160,6 +170,10 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         } else if (id == R.id.edt_add_parking_end_time) {
             presenter.getTime(false);
         }
+//        else if (id == R.id.img_add_parking_take_picture) {
+//            Log.e("TAG", "chụp ảnh");
+//            presenter.takePicture(getSupportFragmentManager());
+//        }
     }
 
     @Override
@@ -224,25 +238,20 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
         showProgressBar(false, false, null, "Đang tải file...");
 
-        Picasso.with(AddParkingActivity.this)
-                .load(uri)
-                .placeholder(R.mipmap.ic_parking_background)
-                .error(R.mipmap.ic_parking_background)
-                .transform(new BitmapTransform(1200, 1200))
-                .fit()
-                .centerCrop()
-                .into(img_load, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Bitmap bitmap = ((BitmapDrawable) img_load.getDrawable()).getBitmap();
-                        presenter.postImage(bitmap);
-                    }
+        Bitmap bitmap = null;
 
-                    @Override
-                    public void onError() {
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                    }
-                });
+        if (bitmap != null)
+            presenter.postImage(bitmap);
+        else {
+            closeProgressBar();
+            showShortToast("Có lỗi xảy ra. Vui lòng thử lại");
+        }
     }
 
     @Override
@@ -464,7 +473,10 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_LOCATION && resultCode == RESULT_LOCATION) {
+        if (requestCode == 101 && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            onTakePictureSuccess(uri);
+        } else if (requestCode == REQUEST_LOCATION && resultCode == RESULT_LOCATION) {
             if (data != null) {
                 placeModel = (PlaceModel) data.getSerializableExtra(MODEL_FIND);
                 edt_address.setText(placeModel.getAddress());
