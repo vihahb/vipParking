@@ -66,7 +66,8 @@ public class ManagementAdapter extends RecyclerSwipeAdapter<ManagementAdapter.Vi
 
         holder.txt_name.setText(parkingInfo.getParking_name());
         holder.txt_address.setText(parkingInfo.getAddress());
-        setStatus(holder.txt_empty, parkingInfo.getEmpty_number());
+        holder.txt_empty.setText(Constants.getPlaceNumber(parkingInfo.getEmpty_number()));
+//        holder.txt_empty, parkingInfo.getEmpty_number());
 
         holder.img_qr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,14 +107,14 @@ public class ManagementAdapter extends RecyclerSwipeAdapter<ManagementAdapter.Vi
         mItemManger.bindView(holder.itemView, position);
     }
 
-    private void setStatus(TextView textView, String number) {
-        textView.setText(Constants.getPlaceNumber(number));
-        if (number == null || number.isEmpty()) {
-            textView.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_still_empty, 0, 0, 0);
-        } else {
-            textView.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_still_empty, 0, 0, 0);
-        }
-    }
+//    private void setStatus(TextView textView, String number) {
+//        textView.setText(Constants.getPlaceNumber(number));
+//        if (number == null || number.isEmpty()) {
+//            textView.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_still_empty, 0, 0, 0);
+//        } else {
+//            textView.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_still_empty, 0, 0, 0);
+//        }
+//    }
 
     @Override
     public int getItemCount() {
