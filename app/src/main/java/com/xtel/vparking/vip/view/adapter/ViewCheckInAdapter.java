@@ -13,6 +13,7 @@ import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.commons.NetWorkInfo;
 import com.xtel.vparking.vip.model.entity.ParkingCheckIn;
+import com.xtel.vparking.vip.view.MyApplication;
 import com.xtel.vparking.vip.view.activity.inf.IViewCheckIn;
 
 import java.util.ArrayList;
@@ -55,7 +56,10 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 view.img_icon.setImageResource(R.drawable.ic_action_bike);
             }
 
-            view.txt_name.setText(checkIn.getUser().getFullname());
+            if (checkIn.getUser().getFullname() == null || checkIn.getUser().getFullname().isEmpty())
+                view.txt_name.setText(MyApplication.context.getString(R.string.not_update));
+            else
+                view.txt_name.setText(checkIn.getUser().getFullname());
             view.txt_time.setText(Constants.convertDataTime(checkIn.getCheckin_time()));
             view.txt_plate_number.setText(checkIn.getVehicle().getPlate_number());
 
