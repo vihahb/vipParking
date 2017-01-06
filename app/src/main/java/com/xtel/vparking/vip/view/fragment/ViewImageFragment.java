@@ -50,7 +50,7 @@ public class ViewImageFragment extends Fragment {
         url = getArguments().getString(Constants.PK_IMAGE);
 
         if (progressBar != null)
-            progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#5c5ca7"), android.graphics.PorterDuff.Mode.MULTIPLY);
+            progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         if (url != null)
             Picasso.with(getContext())
