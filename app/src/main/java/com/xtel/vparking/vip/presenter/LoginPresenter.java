@@ -1,15 +1,11 @@
 package com.xtel.vparking.vip.presenter;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.View;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -50,10 +46,9 @@ import static android.content.Context.TELEPHONY_SERVICE;
  */
 
 public class LoginPresenter {
-    public LoginView view;
-
-    private final int MY_REQUEST_CODE = 1001;
     public static int ACC_REQUEST_CODE = 99;
+    private final int MY_REQUEST_CODE = 1001;
+    public LoginView view;
     CallbackManager callbackManager;
     AccessTokenTracker tokenTracker;
     AccessToken accessToken;
@@ -213,6 +208,7 @@ public class LoginPresenter {
                 public void onError(Error error) {
                     Log.e("Ma loi acc login:", String.valueOf(error.getCode()));
                     Log.e("Message: ", error.getMessage());
+                    view.closeProgressBar();
                 }
             });
 
@@ -240,12 +236,9 @@ public class LoginPresenter {
     }
 
     private boolean validDevice() {
-        if (device_id != null && device_os_name != null
+        return device_id != null && device_os_name != null
                 && device_os_ver != null && other != null
-                && device_type != 0 && device_vendor != null) {
-            return true;
-        }
-        return false;
+                && device_type != 0 && device_vendor != null;
     }
 
     public void gettingFlagData(final String sesion) {
