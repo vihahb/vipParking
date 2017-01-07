@@ -234,6 +234,9 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         if (!NetWorkInfo.isOnline(getActivity())) {
             showShortToast(getString(R.string.no_internet));
             return;
+        } else if (uri == null) {
+            showShortToast("Không thể lấy ảnh");
+            return;
         }
 
         showProgressBar(false, false, null, "Đang tải file...");
