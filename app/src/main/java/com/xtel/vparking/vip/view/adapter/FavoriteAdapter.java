@@ -187,6 +187,7 @@ public class FavoriteAdapter extends RecyclerSwipeAdapter<FavoriteAdapter.ViewHo
                         arrayList.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, getItemCount());
+                        view.onRemoveItemSuccess();
                     }
                 }, 500);
             }
