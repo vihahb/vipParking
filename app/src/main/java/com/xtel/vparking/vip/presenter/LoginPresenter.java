@@ -128,7 +128,7 @@ public class LoginPresenter {
             } else {
                 if (loginResult.getAccessToken() != null) {
                     toas_mes = "Success: " + loginResult.getAccessToken().getAccountId();
-                    view.startActivityAndFinish(HomeActivity.class);
+//                    view.startActivityAndFinish(HomeActivity.class);
                 } else {
                     toas_mes = "Success";
                     Log.e("Authorization Id: ", loginResult.getAuthorizationCode().toString());

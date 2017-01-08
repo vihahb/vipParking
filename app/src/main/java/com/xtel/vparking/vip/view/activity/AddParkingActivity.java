@@ -64,7 +64,8 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     private Button btn_action;
 
     public static final String MODEL_FIND = "model_find";
-    public static final int REQUEST_LOCATION = 88, RESULT_LOCATION = 66, REQUEST_PHONE = 100;
+    public static final int REQUEST_LOCATION = 88, RESULT_LOCATION = 66, REQUEST_PHONE = 100, REQUEST_CAMERA = 10001;
+    private String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +131,13 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     public void TakePicture(View view) {
+        takePicrute();
+    }
+
+    private void takePicrute() {
+        if (!PermissionHelper.checkListPermission(permission, this, REQUEST_CAMERA))
+            return;
+
         final Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryIntent.setType("image/*");
 
@@ -163,7 +171,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         int id = v.getId();
 
         if (id == R.id.edt_add_parking_diachi) {
-            if (PermissionHelper.checkOnlyPermission(Manifest.permission.CAMERA, this, REQUEST_LOCATION))
+            if (PermissionHelper.checkOnlyPermission(Manifest.permission.ACCESS_FINE_LOCATION, this, REQUEST_LOCATION))
                 startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
         } else if (id == R.id.edt_add_parking_begin_time) {
             presenter.getTime(true);
@@ -229,8 +237,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         btn_action.setText(getString(R.string.update));
     }
 
-    @Override
-    public void onTakePictureSuccess(Uri uri) {
+    private void onTakePictureGallary(Uri uri) {
         if (!NetWorkInfo.isOnline(getActivity())) {
             showShortToast(getString(R.string.no_internet));
             return;
@@ -249,12 +256,21 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
             e.printStackTrace();
         }
 
-        if (bitmap != null)
-            presenter.postImage(bitmap);
-        else {
-            closeProgressBar();
-            showShortToast("Có lỗi xảy ra. Vui lòng thử lại");
+        presenter.postImage(bitmap);
+    }
+
+    private void onTakePictureCamera(Bitmap bitmap) {
+        if (!NetWorkInfo.isOnline(getActivity())) {
+            showShortToast(getString(R.string.no_internet));
+            return;
+        } else if (bitmap == null) {
+            showShortToast("Không thể lấy ảnh");
+            return;
         }
+
+        showProgressBar(false, false, null, "Đang tải file...");
+
+        presenter.postImage(bitmap);
     }
 
     @Override
@@ -470,15 +486,32 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
                 startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
             else
                 showShortToast(getString(R.string.error_permission));
-        } else
-            presenter.onRequestPermissionsResult(requestCode, permissions, grantResults, getSupportFragmentManager());
+        } else if (requestCode == REQUEST_CAMERA) {
+            boolean check = true;
+            for (int grantresults : grantResults) {
+                if (grantresults == PackageManager.PERMISSION_DENIED) {
+                    check = false;
+                    break;
+                }
+            }
+
+            if (check)
+                takePicrute();
+            else
+                showShortToast(getApplicationContext().getString(R.string.error_permission));
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 101 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
-            onTakePictureSuccess(uri);
+            if (uri != null) {
+                onTakePictureGallary(uri);
+            } else {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                onTakePictureCamera(bitmap);
+            }
         } else if (requestCode == REQUEST_LOCATION && resultCode == RESULT_LOCATION) {
             if (data != null) {
                 placeModel = (PlaceModel) data.getSerializableExtra(MODEL_FIND);

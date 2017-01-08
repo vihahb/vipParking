@@ -17,7 +17,6 @@ public interface AddParkingView {
     void showShortToast(String message);
     void showProgressBar(boolean isTouchOutside, boolean isCancel, String title, String message);
     void onGetDataSuccess(ParkingInfo object);
-    void onTakePictureSuccess(Uri uri);
     void onPostPictureSuccess(String url);
     void onAddPictureSuccess(String url);
     void onAddPictureError(Error error);

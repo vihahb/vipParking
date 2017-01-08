@@ -1,19 +1,11 @@
 package com.xtel.vparking.vip.presenter;
 
-import android.Manifest;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.TimePicker;
 
-import com.facebook.accountkit.ui.AccountKitActivity;
-import com.facebook.accountkit.ui.AccountKitConfiguration;
-import com.facebook.accountkit.ui.LoginType;
 import com.google.gson.JsonObject;
 import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.callback.ICmd;
@@ -32,19 +24,15 @@ import com.xtel.vparking.vip.model.entity.PlaceModel;
 import com.xtel.vparking.vip.model.entity.Prices;
 import com.xtel.vparking.vip.model.entity.RESP_Parking_Info;
 import com.xtel.vparking.vip.utils.JsonHelper;
-import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.utils.Task;
-import com.xtel.vparking.vip.view.MyApplication;
 import com.xtel.vparking.vip.view.activity.inf.AddParkingView;
 import com.xtel.vparking.vip.view.fragment.ManagementFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import gun0912.tedbottompicker.TedBottomPicker;
-
 /**
- * Created by Lê Công Long Vũ on 12/2/2016.
+ * Created by Lê Công Long Vũ on 12/2/2016
  */
 
 public class AddParkingPresenter extends BasicPresenter {
@@ -88,23 +76,6 @@ public class AddParkingPresenter extends BasicPresenter {
             isUpdate = true;
             view.onGetDataSuccess(object);
         }
-    }
-
-    public void takePicture(FragmentManager fragmentManager) {
-        String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (!PermissionHelper.checkListPermission(permission, view.getActivity(), REQUEST_PERMISSION))
-            return;
-
-        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(MyApplication.context)
-                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
-                    @Override
-                    public void onImageSelected(Uri uri) {
-                        view.onTakePictureSuccess(uri);
-                    }
-                })
-                .setPeekHeight(view.getActivity().getResources().getDisplayMetrics().heightPixels / 2)
-                .create();
-        bottomSheetDialogFragment.show(fragmentManager);
     }
 
     public void postImage(Bitmap bitmap) {
@@ -488,24 +459,5 @@ public class AddParkingPresenter extends BasicPresenter {
         }
 
         view.getActivity().finish();
-    }
-
-    private final int REQUEST_PERMISSION = 1001;
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, FragmentManager fragmentManager) {
-        if (requestCode == REQUEST_PERMISSION) {
-            boolean check = true;
-            for (int grantresults : grantResults) {
-                if (grantresults == PackageManager.PERMISSION_DENIED) {
-                    check = false;
-                    break;
-                }
-            }
-
-            if (check)
-                takePicture(fragmentManager);
-            else
-                view.showShortToast(view.getActivity().getString(R.string.error_permission));
-        }
     }
 }
