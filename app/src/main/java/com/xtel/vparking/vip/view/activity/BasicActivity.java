@@ -154,7 +154,7 @@ public abstract class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                dialogListener.onClicked(null);
+                dialogListener.onCancle();
             }
         });
 
@@ -162,7 +162,7 @@ public abstract class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                dialogListener.onCancle();
+                dialogListener.onClicked(null);
             }
         });
 

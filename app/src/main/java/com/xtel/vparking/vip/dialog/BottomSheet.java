@@ -285,10 +285,6 @@ public class BottomSheet {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty(Constants.JSON_PARKING_ID, params[0]);
 
-                Log.e("pk_fa_url", url);
-                Log.e("pk_fa_session", session);
-                Log.e("pk_fa_json", jsonObject.toString());
-
                 RequestBody body = RequestBody.create(JSON, jsonObject.toString());
                 Request request = new Request.Builder()
                         .url(url)
