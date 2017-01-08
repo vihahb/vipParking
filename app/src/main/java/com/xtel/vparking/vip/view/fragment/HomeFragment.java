@@ -1,7 +1,6 @@
 package com.xtel.vparking.vip.view.fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -21,7 +20,6 @@ import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.NestedScrollView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +76,8 @@ public class HomeFragment extends IFragment implements
     private FloatingActionButton fab_filter, fab_location;
 
     public static BottomSheetBehavior bottomSheetBehavior;
-    private boolean isFindMyLocation, isCanLoadMap = true;
+    private static boolean isFindMyLocation;
+    private boolean isCanLoadMap = true;
     private int isLoadNewParking = 0;
 
     private Marker pickMarker;
@@ -98,14 +97,15 @@ public class HomeFragment extends IFragment implements
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (presenter == null)
+            presenter = new HomeFragmentPresenter(this);
+
         createLocationRequest();
         initGoogleMap();
         initWidget(view);
         initBottomSheet(view);
         initGooogleBottomSheet();
         initBottomSheetView(view);
-
-        presenter = new HomeFragmentPresenter(this);
     }
 
     private void initGoogleMap() {
@@ -287,7 +287,7 @@ public class HomeFragment extends IFragment implements
     public void searchPlace(Place place) {
         if (mMap != null) {
             BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_current_location_big);
-            Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)),  ((int) convertDpToPixel(15)), true);
+            Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)), ((int) convertDpToPixel(15)), true);
             if (pickMarker != null)
                 pickMarker.remove();
 
@@ -325,19 +325,21 @@ public class HomeFragment extends IFragment implements
     }
 
     public void setMapSetting() {
-        if (mMap != null)
+        if (mMap != null) {
+            mMap.getUiSettings().setMapToolbarEnabled(false);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
             if (checkPermission()) {
-                mMap.getUiSettings().setMapToolbarEnabled(false);
                 mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(false);
             }
+        }
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void onMapLongClick(LatLng latLng) {
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_current_location_big);
-        Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)),  ((int) convertDpToPixel(15)), true);
+        Bitmap small_bitmap = Bitmap.createScaledBitmap(bitmapdraw.getBitmap(), ((int) convertDpToPixel(15)), ((int) convertDpToPixel(15)), true);
         if (pickMarker != null)
             pickMarker.remove();
 
@@ -541,8 +543,6 @@ public class HomeFragment extends IFragment implements
                 int id = data.getIntExtra(Constants.ID_PARKING, -1);
                 if (id != -1)
                     presenter.getParkingInfo(id);
-
-                Log.e(this.getClass().getSimpleName(), "parking id: " + id);
             }
         }
     }
@@ -645,8 +645,6 @@ public class HomeFragment extends IFragment implements
     public void onGetParkingAroundSuccess(ArrayList<Parking> arrayList) {
         if (arrayList != null) {
             if (arrayList.size() > 0) {
-                Log.e(this.getClass().getSimpleName(), "total " + arrayList.size() + "  marker list  " + markerList.size());
-
                 int total = markerList.size() - 1;
 
                 for (int i = (arrayList.size() - 1); i >= 0; i--) {
@@ -665,7 +663,6 @@ public class HomeFragment extends IFragment implements
                 }
 
                 for (int i = total; i >= 0; i--) {
-                    Log.e(this.getClass().getSimpleName(), "remove " + i);
                     markerList.get(i).getMarker().remove();
                     markerList.remove(i);
                 }
