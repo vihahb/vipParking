@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_background"
-    tools:context="com.xtel.vparking.view.fragment.VerhicleFragment">
+    tools:context="com.xtel.vparking.vip.view.fragment.VerhicleFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/verhicle.recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/size_12" />
 
     <include
         layout="@layout/layout_progress_view"

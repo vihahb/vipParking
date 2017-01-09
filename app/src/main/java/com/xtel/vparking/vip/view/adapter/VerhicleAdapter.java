@@ -24,10 +24,10 @@ import java.util.Comparator;
  */
 
 public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int view_title = 1, view_item = 0, type_car = 1111, type_bike = 2222;
     private Activity activity;
     private ArrayList<Verhicle> arrayList;
     private VerhicleView verhicleView;
-    private final int view_title = 1, view_item = 0, type_car = 1111, type_bike = 2222;
 
     public VerhicleAdapter(Activity activity, ArrayList<Verhicle> arrayList, VerhicleView verhicleView) {
         this.activity = activity;
@@ -40,7 +40,7 @@ public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewType == view_title)
             return new ViewTitle(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_verhicle_title, parent, false));
         else
-            return new ViewItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_verhicle_item, parent, false));
+            return new ViewItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_test, parent, false));
     }
 
     @Override
@@ -51,9 +51,9 @@ public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ViewTitle view = (ViewTitle) holder;
 
             if (verhicle.getType() == type_car)
-                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_car_black, 0, 0, 0);
+                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_car, 0, 0, 0);
             else if (verhicle.getType() == type_bike)
-                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_moto_black, 0, 0, 0);
+                view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_moto, 0, 0, 0);
             else
                 view.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_bike_black, 0, 0, 0);
 
@@ -66,9 +66,11 @@ public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view.txt_plate_number.setText(verhicle.getPlate_number());
 
             if (verhicle.getFlag_default() == 1)
-                view.img_default.setImageResource(R.drawable.ic_action_green_dot);
+//                view.img_default.setImageResource(R.drawable.ic_action_green_dot);
+                view.tv_defaul.setVisibility(View.VISIBLE);
             else
-                view.img_default.setImageResource(R.drawable.ic_action_gray_dot);
+                view.tv_defaul.setVisibility(View.GONE);
+//                view.img_default.setImageResource(R.drawable.ic_action_gray_dot);
 
 
             view.itemView.setOnClickListener(new View.OnClickListener() {
@@ -96,31 +98,6 @@ public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return view_title;
         else
             return view_item;
-    }
-
-    private class ViewTitle extends RecyclerView.ViewHolder {
-        private TextView txt_icon, txt_title;
-
-        private ViewTitle(View itemView) {
-            super(itemView);
-
-            txt_icon = (TextView) itemView.findViewById(R.id.item_txt_verhicle_icon);
-            txt_title = (TextView) itemView.findViewById(R.id.item_txt_verhicle_title);
-        }
-    }
-
-    private class ViewItem extends RecyclerView.ViewHolder {
-        private TextView txt_name, txt_plate_number, txt_made_by;
-        private ImageView img_default;
-
-        private ViewItem(View itemView) {
-            super(itemView);
-
-            img_default = (ImageView) itemView.findViewById(R.id.item_img_verhicle_default);
-            txt_name = (TextView) itemView.findViewById(R.id.item_txt_verhicle_name);
-            txt_plate_number = (TextView) itemView.findViewById(R.id.item_txt_verhicle_car_number_plate);
-            txt_made_by = (TextView) itemView.findViewById(R.id.item_txt_verhicle_made_by);
-        }
     }
 
     private void insertItem(Verhicle verhicle) {
@@ -263,6 +240,33 @@ public class VerhicleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             insertItem(verhicle);
         } else {
             updateItem(position, verhicle);
+        }
+    }
+
+    private class ViewTitle extends RecyclerView.ViewHolder {
+        private TextView txt_icon, txt_title;
+
+        private ViewTitle(View itemView) {
+            super(itemView);
+
+            txt_icon = (TextView) itemView.findViewById(R.id.item_txt_verhicle_icon);
+            txt_title = (TextView) itemView.findViewById(R.id.item_txt_verhicle_title);
+        }
+    }
+
+    private class ViewItem extends RecyclerView.ViewHolder {
+        private TextView txt_name, txt_plate_number, txt_made_by;
+        private ImageView img_default;
+        private View tv_defaul;
+
+        private ViewItem(View itemView) {
+            super(itemView);
+
+//            img_default = (ImageView) itemView.findViewById(R.id.item_img_verhicle_default);
+            tv_defaul = itemView.findViewById(R.id.set_default);
+            txt_name = (TextView) itemView.findViewById(R.id.item_txt_verhicle_name);
+            txt_plate_number = (TextView) itemView.findViewById(R.id.item_txt_verhicle_car_number_plate);
+            txt_made_by = (TextView) itemView.findViewById(R.id.item_txt_verhicle_made_by);
         }
     }
 }
