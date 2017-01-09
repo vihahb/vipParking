@@ -32,16 +32,15 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/img_add_parking_take_picture"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/size_48"
         android:layout_gravity="bottom|end|right"
-        android:onClick="TakePicture"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
         android:drawableLeft="@mipmap/ic_camera_white"
         android:drawableStart="@mipmap/ic_camera_white"
         android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="TakePicture"
         android:paddingBottom="@dimen/size_4"
         android:paddingEnd="@dimen/size_12"
         android:paddingLeft="0dp"
