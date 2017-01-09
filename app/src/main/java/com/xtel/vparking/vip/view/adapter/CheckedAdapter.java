@@ -17,7 +17,7 @@ import com.xtel.vparking.vip.view.activity.inf.CheckedView;
 import java.util.ArrayList;
 
 /**
- * Created by Lê Công Long Vũ on 12/10/2016.
+ * Created by Lê Công Long Vũ on 12/10/2016
  */
 
 public class CheckedAdapter extends RecyclerView.Adapter<CheckedAdapter.ViewHolder> {
