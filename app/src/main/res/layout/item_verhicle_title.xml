@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_48"
-    android:background="@color/material_background"
+    android:background="@color/background_vehicle"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
@@ -10,10 +10,14 @@
     android:paddingLeft="@dimen/size_16"
     android:paddingRight="@dimen/size_16">
 
+
     <TextView
         android:id="@+id/item.txt_verhicle_icon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/line_img"
+        android:gravity="center"
+        android:padding="@dimen/size_6" />
 
     <TextView
         android:id="@+id/item.txt_verhicle_title"
@@ -22,5 +26,6 @@
         android:layout_marginLeft="@dimen/size_16"
         android:layout_marginStart="@dimen/size_16"
         android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 </LinearLayout>
