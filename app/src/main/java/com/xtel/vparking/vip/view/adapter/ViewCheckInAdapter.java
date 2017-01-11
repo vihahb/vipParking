@@ -2,6 +2,7 @@ package com.xtel.vparking.vip.view.adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.commons.NetWorkInfo;
 import com.xtel.vparking.vip.model.entity.ParkingCheckIn;
+import com.xtel.vparking.vip.utils.JsonHelper;
 import com.xtel.vparking.vip.view.MyApplication;
 import com.xtel.vparking.vip.view.activity.inf.IViewCheckIn;
 
