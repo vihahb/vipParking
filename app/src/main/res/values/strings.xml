@@ -52,6 +52,8 @@
     <string name="loi_coloi">Có lỗi xảy ra</string>
     <string name="get_session_success">Lấy phiên mới thành công</string>
     <string name="not_update">Chưa cập nhật</string>
+    <string name="not_update_phone">Chưa cập nhật số điện thoại</string>
+    <string name="not_update_name">Chưa cập nhật tên</string>
 
 
     <!-- Verhicle -->
@@ -151,12 +153,12 @@
     <string name="dan_duong">Dẫn đường</string>
     <string name="vi_tri_trong">Vị trí trống</string>
     <string name="bottom_sheet_price">Giá</string>
-    <string name="so_dat_cho">Số đặt chỗ</string>
+    <string name="so_dat_cho">Số chỗ trống</string>
 
     <string name="phone">Số điện thoại</string>
     <string name="title_activity_find_parking">Tìm bãi đỗ xe</string>
-    <string name="unlimited">Unlimited</string>
-    <string name="limited">Limited</string>
+    <string name="unlimited">Còn chỗ</string>
+    <string name="limited">Hết chỗ</string>
 
     <string name="error">Có lỗi xảy ra</string>
     <string name="error_server_request">Không thể kết nối tới Server</string>
@@ -189,7 +191,7 @@
 
     <string name="check_verhicle_name">Vui lòng nhập tên phương tiện</string>
     <string name="check_verhicle_plate">Vui lòng nhập biển số phương tiện</string>
-
+    
     <!-- Detail -->
     <string-array name="view_parking_title">
         <item>Check in</item>

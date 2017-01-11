@@ -56,17 +56,18 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 view.img_icon.setImageResource(R.drawable.ic_action_bike);
             }
 
-            if (checkIn.getUser().getFullname() == null || checkIn.getUser().getFullname().isEmpty())
-                view.txt_name.setText(MyApplication.context.getString(R.string.not_update));
-            else
-                view.txt_name.setText(checkIn.getUser().getFullname());
+//            if (checkIn.getUser().getFullname() == null || checkIn.getUser().getFullname().isEmpty())
+//                view.txt_name.setText(MyApplication.context.getString(R.string.not_update));
+//            else
+            view.txt_name.setText(Constants.getUserName(""));
+
             view.txt_time.setText(Constants.convertDataTime(checkIn.getCheckin_time()));
             view.txt_plate_number.setText(checkIn.getVehicle().getPlate_number());
 
-            if (checkIn.getUser().getPhone() == null)
-                view.txt_phone.setText(checkedView.getActivity().getString(R.string.not_update));
-            else
-                view.txt_phone.setText(checkIn.getUser().getPhone());
+//            if (checkIn.getUser().getPhone() == null)
+//                view.txt_phone.setText(checkedView.getActivity().getString(R.string.not_update));
+//            else
+            view.txt_phone.setText(Constants.getUserPhone(""));
 
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
