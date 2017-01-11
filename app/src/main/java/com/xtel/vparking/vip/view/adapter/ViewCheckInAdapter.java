@@ -59,7 +59,7 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            if (checkIn.getUser().getFullname() == null || checkIn.getUser().getFullname().isEmpty())
 //                view.txt_name.setText(MyApplication.context.getString(R.string.not_update));
 //            else
-            view.txt_name.setText(Constants.getUserName(""));
+            view.txt_name.setText(Constants.getUserName(checkIn.getUser().getFullname()));
 
             view.txt_time.setText(Constants.convertDataTime(checkIn.getCheckin_time()));
             view.txt_plate_number.setText(checkIn.getVehicle().getPlate_number());
@@ -67,7 +67,7 @@ public class ViewCheckInAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            if (checkIn.getUser().getPhone() == null)
 //                view.txt_phone.setText(checkedView.getActivity().getString(R.string.not_update));
 //            else
-            view.txt_phone.setText(Constants.getUserPhone(""));
+            view.txt_phone.setText(Constants.getUserPhone(checkIn.getUser().getPhone()));
 
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
