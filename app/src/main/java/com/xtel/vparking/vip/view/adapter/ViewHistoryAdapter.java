@@ -21,12 +21,11 @@ import java.util.ArrayList;
  */
 
 public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int v_item = 1, v_progress = 2;
+    ViewHolder viewHolder;
     private ArrayList<CheckInHisObj> arrayList;
     private IViewHistory iViewHistory;
-    ViewHolder viewHolder;
     private boolean isLoaded = true;
-
-    private static final int v_item = 1, v_progress = 2;
 
     public ViewHistoryAdapter(ArrayList<CheckInHisObj> arrayList, IViewHistory iViewHistory) {
         this.arrayList = arrayList;
@@ -48,14 +47,21 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             final CheckInHisObj hisObj = arrayList.get(position);
 
             if (hisObj.getCheckin_type() == 1) {
-                viewHolder.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_car_black, 0, 0, 0);
+                viewHolder.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_car_primary, 0, 0, 0);
             } else if (hisObj.getCheckin_type() == 2) {
-                viewHolder.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_moto_black, 0, 0, 0);
+                viewHolder.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_moto_primary, 0, 0, 0);
             } else {
                 viewHolder.txt_icon.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_bike_black, 0, 0, 0);
             }
 
-            String name_phone = hisObj.getUser().getFullname() + " (" + hisObj.getUser().getPhone() + ")";
+            String name = hisObj.getUser().getFullname();
+            String phone = hisObj.getUser().getPhone();
+            if (phone == null) {
+                phone = "Chưa có SĐT";
+            } else if (name.isEmpty()) {
+                name = "Chưa có tên";
+            }
+            String name_phone = name + " (" + phone + ")";
 
             viewHolder.txt_name.setText(name_phone);
             viewHolder.txt_time_begin.setText(hisObj.getCheckin_time());
@@ -89,6 +95,18 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+    private void checkIsEmpty(String string) {
+
+        boolean check = false;
+        try {
+
+        } catch (Exception e) {
+
+            check = true;
+        }
+
+    }
+
     private void setSelected() {
         viewHolder.txt_name.setSelected(true);
         viewHolder.txt_time_begin.setSelected(true);
@@ -109,6 +127,16 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return v_progress;
         else
             return v_item;
+    }
+
+    public void setLoadMore(boolean isLoad) {
+        isLoaded = isLoad;
+    }
+
+    public void remove(int position) {
+        arrayList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemChanged(position, getItemCount());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -133,16 +161,6 @@ public class ViewHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.item_progress_bar);
         }
-    }
-
-    public void setLoadMore(boolean isLoad) {
-        isLoaded = isLoad;
-    }
-
-    public void remove(int position) {
-        arrayList.remove(position);
-        notifyItemRemoved(position);
-        notifyItemChanged(position, getItemCount());
     }
 
 }

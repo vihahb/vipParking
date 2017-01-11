@@ -11,21 +11,27 @@
     android:paddingRight="@dimen/size_16">
 
 
-    <TextView
-        android:id="@+id/item.txt_verhicle_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line_img"
-        android:gravity="center"
-        android:padding="@dimen/size_6" />
+    <ImageView
+        android:id="@+id/img_icon_vehicle"
+        android:layout_width="@dimen/size_36"
+        android:layout_height="@dimen/size_36"
+        android:background="@drawable/text_circle"
+        android:padding="@dimen/size_6"
+        android:src="@drawable/ic_design_car" />
 
-    <TextView
-        android:id="@+id/item.txt_verhicle_title"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_16"
-        android:layout_marginStart="@dimen/size_16"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/item.txt_verhicle_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>
