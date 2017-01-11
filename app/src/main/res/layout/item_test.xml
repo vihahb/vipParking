@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/size_1"
@@ -8,41 +7,44 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/size_16"
+    android:paddingRight="@dimen/size_16">
 
     <LinearLayout
-        android:layout_width="@dimen/size_72"
+        android:layout_width="@dimen/size_40"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/size_2"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-        <View
-            android:layout_width="1dp"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary" />
-
-        <FrameLayout
-            android:layout_width="@dimen/size_2"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="-2dp"
-            tool:ignore="UnusedAttribute">
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
             <View
-                android:id="@+id/set_default"
-                android:layout_width="4dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/size_8"
-                android:layout_marginTop="@dimen/size_8"
-                android:background="@color/check_out" />
-        </FrameLayout>
+                android:background="@color/colorPrimary" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_default"
+            android:layout_width="@dimen/size_10"
+            android:layout_height="@dimen/size_10"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_action_green_dot" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_16"
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingBottom="@dimen/size_8"
+        android:paddingEnd="@dimen/size_16"
         android:paddingRight="@dimen/size_16"
         android:paddingTop="@dimen/size_8">
 
@@ -66,16 +68,18 @@
             android:textSize="@dimen/font_13" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/item.txt_verhicle_car_number_plate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_16"
         android:layout_marginStart="@dimen/size_16"
-        android:paddingBottom="@dimen/size_8"
-        android:paddingLeft="@dimen/size_16"
-        android:paddingRight="@dimen/size_16"
-        android:paddingTop="@dimen/size_8"
         android:text="3025-3260"
         android:textSize="@dimen/font_13" />
 
