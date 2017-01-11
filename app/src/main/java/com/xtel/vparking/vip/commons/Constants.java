@@ -172,6 +172,20 @@ public class Constants {
             return content;
     }
 
+    public static String getUserPhone(String phone) {
+        if (phone == null || phone.isEmpty())
+            return MyApplication.context.getString(R.string.not_update_phone);
+        else
+            return phone;
+    }
+
+    public static String getUserName(String name) {
+        if (name == null || name.isEmpty())
+            return MyApplication.context.getString(R.string.not_update_name);
+        else
+            return name;
+    }
+
     public static String getTime(String begin, String end) {
         if (begin == null && end == null)
             return "Cả ngày";
@@ -212,10 +226,15 @@ public class Constants {
         if (number == null || number.isEmpty())
             return MyApplication.context.getString(R.string.unlimited);
 
+
         int total = Integer.parseInt(number);
         Random r = new Random();
         int rand = r.nextInt(50 - 30) + 30;
         total = (int) ((total * rand) / 100);
+
+        if (total <= 0)
+            return MyApplication.context.getString(R.string.limited);
+
         return String.valueOf(total);
     }
 
