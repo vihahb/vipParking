@@ -217,7 +217,7 @@ public class AddParkingPresenter extends BasicPresenter {
                 if (!begin_time.isEmpty())
                     object.setBegin_time(begin_time);
                 if (!end_time.isEmpty())
-                    object.setBegin_time(end_time);
+                    object.setEnd_time(end_time);
 
                 object.setTotal_place(total_place);
                 object.setEmpty_number(total_place);
@@ -238,7 +238,7 @@ public class AddParkingPresenter extends BasicPresenter {
                 if (!begin_time.isEmpty())
                     object.setBegin_time(begin_time);
                 if (!end_time.isEmpty())
-                    object.setBegin_time(end_time);
+                    object.setEnd_time(end_time);
 
                 object.setTotal_place(total_place);
                 object.setEmpty_number(total_place);

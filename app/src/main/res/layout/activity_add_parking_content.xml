@@ -164,7 +164,6 @@
                     android:layout_marginRight="@dimen/size_6"
                     android:drawableEnd="@drawable/ic_action_begin_time"
                     android:drawableRight="@drawable/ic_action_begin_time"
-                    android:hint="@string/add_time_zero"
                     android:text="@string/add_time_zero"
                     app:theme="@style/AddParking_Editext.ButtumLine" />
 
@@ -177,7 +176,6 @@
                     android:layout_marginStart="@dimen/size_6"
                     android:drawableEnd="@drawable/ic_action_end_time"
                     android:drawableRight="@drawable/ic_action_end_time"
-                    android:hint="@string/add_time_end"
                     android:text="@string/add_time_end"
                     app:theme="@style/AddParking_Editext.ButtumLine" />
             </TableRow>
