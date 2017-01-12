@@ -238,7 +238,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     private void onTakePictureGallary(Uri uri) {
-        if (!NetWorkInfo.isOnline(getActivity())) {
+        if (!NetWorkInfo.isOnline(this)) {
             showShortToast(getString(R.string.no_internet));
             return;
         } else if (uri == null) {
@@ -260,7 +260,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     private void onTakePictureCamera(Bitmap bitmap) {
-        if (!NetWorkInfo.isOnline(getActivity())) {
+        if (!NetWorkInfo.isOnline(this)) {
             showShortToast(getString(R.string.no_internet));
             return;
         } else if (bitmap == null) {
