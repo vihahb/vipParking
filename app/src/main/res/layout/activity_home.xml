@@ -90,6 +90,7 @@
             android:paddingEnd="@dimen/size_24"
             android:paddingLeft="@dimen/size_16"
             android:paddingRight="@dimen/size_24"
+            android:textAllCaps="true"
             android:paddingStart="@dimen/size_16"
             android:text="@string/isMaster"
             android:textColor="@android:color/white" />

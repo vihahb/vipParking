@@ -49,7 +49,7 @@
         android:background="@color/btn_fb_plus"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="addParking"
+        android:textAllCaps="true"
         android:text="@string/add_dangtin"
-        android:textAllCaps="false"
         android:textColor="@android:color/white" />
 </LinearLayout>

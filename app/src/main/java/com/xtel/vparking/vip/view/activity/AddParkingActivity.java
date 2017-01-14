@@ -104,6 +104,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
                 getResources().getStringArray(R.array.add_transport));
         arrayAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown_item);
         sp_transport_type.setAdapter(arrayAdapter);
+        sp_transport_type.setSelection(5);
     }
 
     private void initRecyclerview() {
@@ -162,7 +163,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
     public void addParking(View view) {
         presenter.validateData(view, arrayList_picture, edt_parking_name.getText().toString(), placeModel,
-                sp_transport_type.getSelectedItemPosition(), edt_place_number.getText().toString(), edt_parking_phone.getText().toString(),
+                (sp_transport_type.getSelectedItemPosition() + 1), edt_place_number.getText().toString(), edt_parking_phone.getText().toString(),
                 edt_begin_time.getText().toString(), edt_end_time.getText().toString(), arrayList_price);
     }
 
@@ -207,7 +208,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
         edt_address.setText(placeModel.getAddress());
         edt_parking_name.setText(object.getParking_name());
-        sp_transport_type.setSelection((int) object.getType());
+        sp_transport_type.setSelection((int) (object.getType() - 1));
         edt_place_number.setText(object.getTotal_place());
         edt_begin_time.setText(object.getBegin_time());
         edt_end_time.setText(object.getBegin_time());
@@ -383,7 +384,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     @Override
     public void onAddParkingSuccess(final int id) {
         closeProgressBar();
-        showDialog(false, false, "THÔNG BÁO", "Tin đã được đăng thành công", "OK", new View.OnClickListener() {
+        showDialog(false, false, "THÔNG BÁO", "Thêm bãi đỗ thành công", "OK", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -403,7 +404,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     @Override
     public void onUpdateParkingSuccess(final ParkingInfo parkingInfo) {
         closeProgressBar();
-        showDialog(false, false, "THÔNG BÁO", "Tin đã cập nhật thành công", "OK", new View.OnClickListener() {
+        showDialog(false, false, "THÔNG BÁO", "Cập nhật bãi đỗ thành công", "OK", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();

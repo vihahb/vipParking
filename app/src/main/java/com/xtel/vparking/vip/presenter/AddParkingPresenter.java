@@ -188,7 +188,7 @@ public class AddParkingPresenter extends BasicPresenter {
         } else if (placeModel == null) {
             view.onValidateError(_view, view.getActivity().getString(R.string.loi_vitri));
         } else if (transport_type == 0) {
-            view.onValidateError(_view, view.getActivity().getString(R.string.error_choose_transport));
+            view.onValidateError(_view, view.getActivity().getString(R.string.error_choose_type_of_verhicle));
         } else if (checkNumberInput(total_place) <= 0) {
             view.onValidateError(_view, view.getActivity().getString(R.string.loi_chotrong));
         } else if (phone.isEmpty()) {
