@@ -36,23 +36,26 @@ public class HomePresenter {
     }
 
     private void checkPermission() {
-        if (PermissionHelper.checkOnlyPermission(Manifest.permission.ACCESS_FINE_LOCATION, homeView.getActivity(), REQUEST_PERMISSION))
+        if (PermissionHelper.checkOnlyPermission(Manifest.permission.ACCESS_FINE_LOCATION, homeView.getActivity(), REQUEST_PERMISSION)) {
             NetWorkInfo.checkGPS(homeView.getActivity());
+        }
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSION) {
-            boolean check = true;
-            for (int grantresults : grantResults) {
-                if (grantresults == PackageManager.PERMISSION_DENIED) {
-                    check = false;
-                    break;
+            if (grantResults.length > 0) {
+                boolean check = true;
+                for (int grantresults : grantResults) {
+                    if (grantresults == PackageManager.PERMISSION_DENIED) {
+                        check = false;
+                        break;
+                    }
                 }
-            }
 
-            if (check) {
-                homeView.onSetMapSetting();
-                NetWorkInfo.checkGPS(homeView.getActivity());
+                if (check) {
+                    homeView.onSetMapSetting();
+                    NetWorkInfo.checkGPS(homeView.getActivity());
+                }
             }
         }
     }
