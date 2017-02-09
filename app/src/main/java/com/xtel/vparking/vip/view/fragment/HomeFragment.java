@@ -21,6 +21,7 @@ import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.NestedScrollView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -550,6 +551,8 @@ public class HomeFragment extends IFragment implements
 
                 if (!isFindMyLocation)
                     isFindMyLocation = true;
+
+                Log.e("model", "type " + findModel.getType());
 
                 actionType = 1;
                 HomeActivity.find_option = findModel;
