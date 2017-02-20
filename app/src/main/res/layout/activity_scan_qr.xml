@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xtel.vparking.view.activity.ScanQrActivity">
+    tools:context="com.xtel.vparking.vip.view.activity.ScanQrActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
