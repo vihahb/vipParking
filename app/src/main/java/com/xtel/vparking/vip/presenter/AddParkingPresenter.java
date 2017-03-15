@@ -177,7 +177,7 @@ public class AddParkingPresenter extends BasicPresenter {
         });
     }
 
-    public void validateData(View _view, ArrayList<Pictures> arrayList_picture, String parking_name, PlaceModel placeModel,
+    public void validateData(View _view, ArrayList<Pictures> arrayList_picture, String parking_name, String parking_address, PlaceModel placeModel,
                              int transport_type, String total_place, String phone, String begin_time, String end_time,
                              ArrayList<Prices> arrayList_price) {
 
@@ -186,7 +186,9 @@ public class AddParkingPresenter extends BasicPresenter {
         } else if (parking_name.isEmpty()) {
             view.onValidateError(_view, view.getActivity().getString(R.string.loi_nhapten));
         } else if (placeModel == null) {
-            view.onValidateError(_view, view.getActivity().getString(R.string.loi_vitri));
+            view.onValidateError(_view, view.getActivity().getString(R.string.error_pick_address));
+        } else if (parking_address.isEmpty()) {
+            view.onValidateError(_view, view.getActivity().getString(R.string.error_input_address));
         } else if (transport_type == 0) {
             view.onValidateError(_view, view.getActivity().getString(R.string.error_choose_type_of_verhicle));
         } else if (checkNumberInput(total_place) <= 0) {
@@ -210,7 +212,7 @@ public class AddParkingPresenter extends BasicPresenter {
                 object.setLat(placeModel.getLatitude());
                 object.setLng(placeModel.getLongtitude());
                 object.setType(transport_type);
-                object.setAddress(placeModel.getAddress());
+                object.setAddress(parking_address);
                 object.setParking_name(parking_name);
                 object.setParking_phone(phone);
 

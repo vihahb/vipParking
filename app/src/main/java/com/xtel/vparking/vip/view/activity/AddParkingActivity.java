@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,8 +50,10 @@ import java.util.ArrayList;
 
 public class AddParkingActivity extends BasicActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, AddParkingView {
     private AddParkingPresenter presenter;
-    private TextView txt_image_number, edt_address;
-    private EditText edt_parking_name, edt_place_number, edt_parking_phone, edt_begin_time, edt_end_time;
+
+    private ImageButton img_pick_map;
+    private TextView txt_image_number;
+    private EditText edt_parking_name, edt_address, edt_place_number, edt_parking_phone, edt_begin_time, edt_end_time;
     private Spinner sp_transport_type;
 
     private PriceAdapter priceAdapter;
@@ -84,13 +87,15 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
     private void initWidger() {
         txt_image_number = (TextView) findViewById(R.id.txt_add_parking_image_number);
+
+        img_pick_map = (ImageButton) findViewById(R.id.img_add_parking_pick_map);
         img_delete = (ImageView) findViewById(R.id.img_add_parking_delete);
         img_load = (ImageView) findViewById(R.id.img_add_parking_picture);
 
         edt_parking_name = (EditText) findViewById(R.id.edt_add_parking_name);
         edt_place_number = (EditText) findViewById(R.id.edt_add_parking_empty);
         edt_parking_phone = (EditText) findViewById(R.id.edt_add_parking_phone);
-        edt_address = (TextView) findViewById(R.id.edt_add_parking_diachi);
+        edt_address = (EditText) findViewById(R.id.edt_add_parking_diachi);
         edt_begin_time = (EditText) findViewById(R.id.edt_add_parking_begin_time);
         edt_end_time = (EditText) findViewById(R.id.edt_add_parking_end_time);
 
@@ -118,7 +123,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     private void initListener() {
-        edt_address.setOnClickListener(this);
+        img_pick_map.setOnClickListener(this);
         edt_parking_phone.setOnClickListener(this);
         edt_begin_time.setOnClickListener(this);
         edt_end_time.setOnClickListener(this);
@@ -132,13 +137,13 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     public void TakePicture(View view) {
+        if (!PermissionHelper.checkListPermission(permission, this, REQUEST_CAMERA))
+            return;
+
         takePicrute();
     }
 
     private void takePicrute() {
-        if (!PermissionHelper.checkListPermission(permission, this, REQUEST_CAMERA))
-            return;
-
         final Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryIntent.setType("image/*");
 
@@ -162,7 +167,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     public void addParking(View view) {
-        presenter.validateData(view, arrayList_picture, edt_parking_name.getText().toString(), placeModel,
+        presenter.validateData(view, arrayList_picture, edt_parking_name.getText().toString(), edt_address.getText().toString(), placeModel,
                 (sp_transport_type.getSelectedItemPosition() + 1), edt_place_number.getText().toString(), edt_parking_phone.getText().toString(),
                 edt_begin_time.getText().toString(), edt_end_time.getText().toString(), arrayList_price);
     }
@@ -171,7 +176,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.edt_add_parking_diachi) {
+        if (id == R.id.img_add_parking_pick_map) {
             if (PermissionHelper.checkOnlyPermission(Manifest.permission.ACCESS_FINE_LOCATION, this, REQUEST_LOCATION))
                 startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
         } else if (id == R.id.edt_add_parking_begin_time) {
@@ -179,10 +184,6 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         } else if (id == R.id.edt_add_parking_end_time) {
             presenter.getTime(false);
         }
-//        else if (id == R.id.img_add_parking_take_picture) {
-//            Log.e("TAG", "chụp ảnh");
-//            presenter.takePicture(getSupportFragmentManager());
-//        }
     }
 
     @Override

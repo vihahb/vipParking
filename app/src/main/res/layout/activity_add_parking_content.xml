@@ -45,18 +45,45 @@
             android:layout_height="wrap_content"
             android:text="@string/add_address" />
 
-        <TextView
-            android:id="@+id/edt_add_parking_diachi"
-            style="@style/AddParking_Editext_Border_No_Focus"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_40"
-            android:layout_marginTop="@dimen/size_8"
-            android:drawableEnd="@drawable/ic_action_arrow_right"
-            android:drawablePadding="@dimen/size_16"
-            android:drawableRight="@drawable/ic_action_arrow_right"
-            android:hint="@string/input_address"
-            android:textColor="@android:color/black"
-            app:theme="@style/AddParking_Editext.ButtumLine" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8">
+
+            <EditText
+                android:id="@+id/edt_add_parking_diachi"
+                style="@style/AddParking_Editext_Border"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40"
+                android:hint="@string/input_parking_name"
+                android:paddingEnd="@dimen/size_50"
+                android:paddingRight="@dimen/size_50" />
+
+            <ImageButton
+                android:id="@+id/img_add_parking_pick_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/edt_add_parking_diachi"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/edt_add_parking_diachi"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:paddingLeft="@dimen/size_4"
+                android:paddingRight="@dimen/size_4"
+                android:src="@drawable/ic_action_pick_map" />
+        </RelativeLayout>
+
+        <!--style="@style/AddParking_Editext_Border_No_Focus"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/size_40"-->
+        <!--android:layout_marginTop="@dimen/size_8"-->
+        <!--android:drawableEnd="@drawable/ic_action_arrow_right"-->
+        <!--android:drawablePadding="@dimen/size_16"-->
+        <!--android:drawableRight="@drawable/ic_action_arrow_right"-->
+        <!--android:hint="@string/input_address"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--app:theme="@style/AddParking_Editext.ButtumLine" />-->
 
         <TextView
             style="@style/AddParking_Textview"

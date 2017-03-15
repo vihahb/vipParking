@@ -118,6 +118,8 @@
     <string name="error_choose_money_price">Vui lòng chọn giá</string>
     <string name="error_updating">Cập nhật bãi đỗ thất bại</string>
     <string name="error_permission">Không thể thực hiện chức năng do bạn chưa cấp quyền</string>
+    <string name="error_input_address">Vui lòng nhập địa chỉ bãi đỗ</string>
+    <string name="error_pick_address">Vui lòng chọn địa chỉ bãi đỗ trên bản đồ</string>
 
     <string name="parking_xedap">Loại bãi đỗ: Xe đạp</string>
     <string name="parking_xemay">Loại bãi đỗ: Xe máy</string>
