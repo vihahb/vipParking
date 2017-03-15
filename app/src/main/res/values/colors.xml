@@ -23,5 +23,9 @@
     <color name="line_verticle_color">#737373</color>
     <color name="check_out">#be1351</color>
 
+    <color name="line_gray">#D3D3D3</color>
 
+    <color name="black_40">#66000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="black_60">#99000000</color>
 </resources>
