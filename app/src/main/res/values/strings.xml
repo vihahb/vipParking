@@ -83,6 +83,9 @@
     <string name="xemay">Xe máy</string>
     <string name="xedap">Xe đạp</string>
 
+    <!-- Checked Verhicle -->
+    <string name="car_number_plate">Biển số xe</string>
+
     <!-- Add Parking -->
     <string name="add_parking_name">Tên bãi đỗ</string>
     <string name="input_parking_name">Nhập tên bãi đỗ</string>

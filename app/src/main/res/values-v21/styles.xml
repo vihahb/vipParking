@@ -9,6 +9,7 @@
         <item name="android:paddingStart">@dimen/size_16</item>
         <item name="android:paddingEnd">@dimen/size_16</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="Spinner_Item">

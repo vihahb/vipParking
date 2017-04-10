@@ -45,11 +45,11 @@ public class TicketPresenter {
         }
 
         if (checkIn != null) {
-            view.onGetDataSuccess(checkIn.getVehicle().getName(), checkIn.getCheckin_time(), checkIn.getVehicle().getPlate_number());
+            view.onGetDataSuccess(checkIn.getVehicle().getName(), checkIn.getCheckin_time(), checkIn.getVehicle().getPlate_number(), checkIn.getTicket_code());
             getParkingInfo(checkIn.getParking().getId());
         } else if (parkingCheckIn != null && parking_id != -1) {
             view.hideButton();
-            view.onGetDataSuccess(parkingCheckIn.getVehicle().getName(), parkingCheckIn.getCheckin_time(), parkingCheckIn.getVehicle().getPlate_number());
+            view.onGetDataSuccess(parkingCheckIn.getVehicle().getName(), parkingCheckIn.getCheckin_time(), parkingCheckIn.getVehicle().getPlate_number(), checkIn.getTicket_code());
             getParkingInfo(parking_id);
         } else
             view.onGetDataError();

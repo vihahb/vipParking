@@ -77,7 +77,7 @@ public class HomeFragment extends IFragment implements
     private LocationRequest mLocationRequest;
 
     //    private ArrayList<MarkerModel> markerList;
-    private HashMap<Marker, Parking> hashMap_Marker;
+//    private HashMap<Marker, Parking> hashMap_Marker;
     private HashMap<Integer, Boolean> hashMap_Check;
 
     private FloatingActionButton fab_filter, fab_location;
@@ -129,7 +129,7 @@ public class HomeFragment extends IFragment implements
         }
 
 //        markerList = new ArrayList<>();
-        hashMap_Marker = new HashMap<>();
+//        hashMap_Marker = new HashMap<>();
         hashMap_Check = new HashMap<>();
     }
 
@@ -380,15 +380,21 @@ public class HomeFragment extends IFragment implements
                 dialogBottomSheet.clearData();
             }
 
-            if (hashMap_Marker.get(marker) != null) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showProgressBar(false, false, null, getString(R.string.parking_get_data));
-                        presenter.getParkingInfo(hashMap_Marker.get(marker).getId());
-                    }
-                }, 200);
+            Parking parking = (Parking) marker.getTag();
+            if (parking != null) {
+                showProgressBar(false, false, null, getString(R.string.parking_get_data));
+                presenter.getParkingInfo(parking.getId());
             }
+
+//            if (hashMap_Marker.get(marker) != null) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        showProgressBar(false, false, null, getString(R.string.parking_get_data));
+//                        presenter.getParkingInfo(hashMap_Marker.get(marker).getId());
+//                    }
+//                }, 200);
+//            }
 
 //            for (int i = 0; i < markerList.size(); i++) {
 //                if (markerList.get(i).getMarker().getId().equals(marker.getId())) {
@@ -573,7 +579,7 @@ public class HomeFragment extends IFragment implements
 
     private void clearMarker() {
         mMap.clear();
-        hashMap_Marker.clear();
+//        hashMap_Marker.clear();
         hashMap_Check.clear();
 //        if (markerList.size() > 0)
 //            for (int i = (markerList.size() - 1); i >= 0; i--) {
@@ -700,11 +706,13 @@ public class HomeFragment extends IFragment implements
                                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker_red)));
                     }
 
-                    try {
-                        hashMap_Marker.put(marker, parking);
-                    } catch (Exception e) {
-                        hashMap_Check.remove(parking.getId());
-                    }
+                    marker.setTag(parking);
+
+//                    try {
+//                        hashMap_Marker.put(marker, parking);
+//                    } catch (Exception e) {
+//                        hashMap_Check.remove(parking.getId());
+//                    }
                 }
             }
         }

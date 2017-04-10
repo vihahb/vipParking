@@ -12,7 +12,7 @@ import com.xtel.vparking.vip.model.entity.RESP_Parking_Info;
 
 public interface ITichketView {
 
-    void onGetDataSuccess(String name, String time, String plate_number);
+    void onGetDataSuccess(String name, String time, String plate_number, String ticket_code);
 
     void onGetDataError();
 
