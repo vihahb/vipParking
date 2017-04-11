@@ -21,22 +21,24 @@ import com.xtel.vparking.vip.presenter.AddParkingPresenter;
 import java.util.ArrayList;
 
 /**
- * Created by Lê Công Long Vũ on 12/8/2016.
+ * Created by Lê Công Long Vũ on 12/8/2016
  */
 
 public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> {
     private AddParkingPresenter presenter;
     private ArrayList<Prices> arrayList;
     private ArrayAdapter adapter_transport, adapter_price;
+    private boolean isSetDefault;
 
     @SuppressWarnings("unchecked")
-    public PriceAdapter(Context context, ArrayList<Prices> arrayList, AddParkingPresenter presenter) {
-        adapter_transport = new ArrayAdapter(context, R.layout.item_spinner_normal, context.getResources().getStringArray(R.array.add_transport_type));
+    public PriceAdapter(Context context, ArrayList<Prices> arrayList, AddParkingPresenter presenter, boolean isSetDefault) {
+        adapter_transport = new ArrayAdapter(context, R.layout.item_spinner_normal, context.getResources().getStringArray(R.array.add_verhicle_type));
         adapter_transport.setDropDownViewResource(R.layout.item_spinner_dropdown_item);
         adapter_price = new ArrayAdapter(context, R.layout.item_spinner_normal, context.getResources().getStringArray(R.array.add_price_type));
         adapter_price.setDropDownViewResource(R.layout.item_spinner_dropdown_item);
         this.arrayList = arrayList;
         this.presenter = presenter;
+        this.isSetDefault = isSetDefault;
     }
 
     @Override
@@ -51,45 +53,49 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 
         holder.sp_for.setAdapter(adapter_transport);
         holder.sp_type.setAdapter(adapter_price);
-
-        holder.sp_type.setSelection((prices.getPrice_type() - 1));
-        switch (prices.getPrice_for()) {
-            case 1:
-                holder.sp_for.setSelection(2);
-                break;
-            case 2:
-                holder.sp_for.setSelection(1);
-                break;
-            case 3:
-                holder.sp_for.setSelection(0);
-                break;
-            default:
-                break;
-        }
-
-        if (prices.getPrice() > 0)
-            holder.edt_price.setText(String.valueOf(prices.getPrice()));
-        else
-            holder.edt_price.setText("");
-
-        if (position == (arrayList.size() - 1))
-            holder.img_add.setImageResource(R.drawable.ic_action_add);
-        else
-            holder.img_add.setImageResource(R.drawable.ic_action_remove);
-
-        try {
-            holder.edt_price.removeTextChangedListener(holder.textWatcher);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         holder.edt_price.addTextChangedListener(holder.textWatcher);
 
-        if (prices.getId() != -1) {
-            holder.edt_price.setEnabled(false);
-            holder.sp_for.setEnabled(false);
-            holder.sp_type.setEnabled(false);
-        }
+        if (isSetDefault && position == 0) {
+            setDefaulData(holder);
+        } else
+            setData(holder, prices, position);
+
+//        holder.sp_type.setSelection((prices.getPrice_type() - 1));
+//        switch (prices.getPrice_for()) {
+//            case 1:
+//                holder.sp_for.setSelection(2);
+//                break;
+//            case 2:
+//                holder.sp_for.setSelection(1);
+//                break;
+//            case 3:
+//                holder.sp_for.setSelection(0);
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        if (prices.getPrice() > 0)
+//            holder.edt_price.setText(String.valueOf(prices.getPrice()));
+//        else
+//            holder.edt_price.setText("");
+//
+//        if (position == (arrayList.size() - 1))
+//            holder.img_add.setImageResource(R.drawable.ic_action_add);
+//        else
+//            holder.img_add.setImageResource(R.drawable.ic_action_remove);
+//
+//        try {
+//            holder.edt_price.removeTextChangedListener(holder.textWatcher);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (prices.getId() != -1) {
+//            holder.edt_price.setEnabled(false);
+//            holder.sp_for.setEnabled(false);
+//            holder.sp_type.setEnabled(false);
+//        }
 
         holder.sp_for.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -143,6 +149,51 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
         });
     }
 
+    private void setDefaulData(ViewHolder holder) {
+        String default_Price = "30";
+        holder.edt_price.setText(default_Price);
+        holder.sp_type.setSelection(1);
+    }
+
+    private void setData(ViewHolder holder, Prices prices, int position) {
+        holder.sp_type.setSelection((prices.getPrice_type() - 1));
+        switch (prices.getPrice_for()) {
+            case 1:
+                holder.sp_for.setSelection(2);
+                break;
+            case 2:
+                holder.sp_for.setSelection(1);
+                break;
+            case 3:
+                holder.sp_for.setSelection(0);
+                break;
+            default:
+                break;
+        }
+
+        if (prices.getPrice() > 0)
+            holder.edt_price.setText(String.valueOf(prices.getPrice()));
+        else
+            holder.edt_price.setText("");
+
+        if (position == (arrayList.size() - 1))
+            holder.img_add.setImageResource(R.drawable.ic_action_add);
+        else
+            holder.img_add.setImageResource(R.drawable.ic_action_remove);
+
+        try {
+            holder.edt_price.removeTextChangedListener(holder.textWatcher);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (prices.getId() != -1) {
+            holder.edt_price.setEnabled(false);
+            holder.sp_for.setEnabled(false);
+            holder.sp_type.setEnabled(false);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return arrayList.size();
@@ -188,6 +239,10 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 
     public ArrayList<Prices> getArrayList() {
         return this.arrayList;
+    }
+
+    public void setSetDefault(boolean isSetDefault) {
+        this.isSetDefault = isSetDefault;
     }
 
     public void deleteItem(int position) {

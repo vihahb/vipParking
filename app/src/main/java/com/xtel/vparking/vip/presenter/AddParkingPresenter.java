@@ -197,9 +197,10 @@ public class AddParkingPresenter extends BasicPresenter {
 //        else if (phone.isEmpty()) {
 //            view.onValidateError(_view, view.getActivity().getString(R.string.loi_phone_empty));
 //        }
-        else if (phone.length() < 10 || phone.length() > 11) {
-            view.onValidateError(_view, view.getActivity().getString(R.string.loi_phone));
-        } else if (!checkListPrice(arrayList_price)) {
+//        else if (phone.length() < 10 || phone.length() > 11) {
+//            view.onValidateError(_view, view.getActivity().getString(R.string.loi_phone));
+//        }
+        else if (!checkListPrice(arrayList_price)) {
             view.onValidateError(_view, view.getActivity().getString(R.string.error_choose_money_price));
         } else {
             if (!NetWorkInfo.isOnline(view.getActivity())) {

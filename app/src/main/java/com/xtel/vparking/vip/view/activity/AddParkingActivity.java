@@ -118,7 +118,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
         arrayList_price = new ArrayList<>();
         arrayList_price.add(new Prices(-1, 0, 1, 3));
-        priceAdapter = new PriceAdapter(getApplicationContext(), arrayList_price, presenter);
+        priceAdapter = new PriceAdapter(getApplicationContext(), arrayList_price, presenter, true);
         recyclerView.setAdapter(priceAdapter);
     }
 
@@ -212,7 +212,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         sp_transport_type.setSelection((int) (object.getType() - 1));
         edt_place_number.setText(object.getTotal_place());
         edt_begin_time.setText(object.getBegin_time());
-        edt_end_time.setText(object.getBegin_time());
+        edt_end_time.setText(object.getEnd_time());
         edt_parking_phone.setText(object.getParking_phone());
 
         arrayList_price.clear();
@@ -220,6 +220,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         if (arrayList_price.size() == 0)
             arrayList_price.add(new Prices(-1, 0, 1, 3));
 
+        priceAdapter.setSetDefault(false);
         priceAdapter.notifyDataSetChanged();
 
         arrayList_picture.addAll(object.getPictures());

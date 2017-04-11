@@ -142,7 +142,7 @@
         <item>Tất cả</item>
     </string-array>
 
-    <string-array name="add_transport_type">
+    <string-array name="add_verhicle_type">
         <item>Ô tô</item>
         <item>Xe máy</item>
         <item>Xe đạp</item>

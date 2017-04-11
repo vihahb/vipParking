@@ -37,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_40"
             android:layout_marginTop="@dimen/size_8"
-            android:hint="@string/input_parking_name" />
+            android:hint="@string/input_parking_name"
+            android:inputType="textCapSentences" />
 
         <TextView
             style="@style/AddParking_Textview"
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_40"
                 android:hint="@string/input_parking_name"
+                android:inputType="textCapSentences"
                 android:paddingEnd="@dimen/size_50"
                 android:paddingRight="@dimen/size_50" />
 
