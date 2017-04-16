@@ -53,49 +53,45 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 
         holder.sp_for.setAdapter(adapter_transport);
         holder.sp_type.setAdapter(adapter_price);
+
+        holder.sp_type.setSelection((prices.getPrice_type() - 1));
+        switch (prices.getPrice_for()) {
+            case 1:
+                holder.sp_for.setSelection(2);
+                break;
+            case 2:
+                holder.sp_for.setSelection(1);
+                break;
+            case 3:
+                holder.sp_for.setSelection(0);
+                break;
+            default:
+                break;
+        }
+
+        if (prices.getPrice() > 0)
+            holder.edt_price.setText(String.valueOf(prices.getPrice()));
+        else
+            holder.edt_price.setText("");
+
+        if (position == (arrayList.size() - 1))
+            holder.img_add.setImageResource(R.drawable.ic_action_add);
+        else
+            holder.img_add.setImageResource(R.drawable.ic_action_remove);
+
+        try {
+            holder.edt_price.removeTextChangedListener(holder.textWatcher);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         holder.edt_price.addTextChangedListener(holder.textWatcher);
 
-        if (isSetDefault && position == 0) {
-            setDefaulData(holder);
-        } else
-            setData(holder, prices, position);
-
-//        holder.sp_type.setSelection((prices.getPrice_type() - 1));
-//        switch (prices.getPrice_for()) {
-//            case 1:
-//                holder.sp_for.setSelection(2);
-//                break;
-//            case 2:
-//                holder.sp_for.setSelection(1);
-//                break;
-//            case 3:
-//                holder.sp_for.setSelection(0);
-//                break;
-//            default:
-//                break;
-//        }
-//
-//        if (prices.getPrice() > 0)
-//            holder.edt_price.setText(String.valueOf(prices.getPrice()));
-//        else
-//            holder.edt_price.setText("");
-//
-//        if (position == (arrayList.size() - 1))
-//            holder.img_add.setImageResource(R.drawable.ic_action_add);
-//        else
-//            holder.img_add.setImageResource(R.drawable.ic_action_remove);
-//
-//        try {
-//            holder.edt_price.removeTextChangedListener(holder.textWatcher);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (prices.getId() != -1) {
-//            holder.edt_price.setEnabled(false);
-//            holder.sp_for.setEnabled(false);
-//            holder.sp_type.setEnabled(false);
-//        }
+        if (prices.getId() != -1) {
+            holder.edt_price.setEnabled(false);
+            holder.sp_for.setEnabled(false);
+            holder.sp_type.setEnabled(false);
+        }
 
         holder.sp_for.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -147,12 +143,6 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
                 }
             }
         });
-    }
-
-    private void setDefaulData(ViewHolder holder) {
-        String default_Price = "30";
-        holder.edt_price.setText(default_Price);
-        holder.sp_type.setSelection(1);
     }
 
     private void setData(ViewHolder holder, Prices prices, int position) {

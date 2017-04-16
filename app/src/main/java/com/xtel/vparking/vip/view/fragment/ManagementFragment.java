@@ -114,6 +114,7 @@ public class ManagementFragment extends IFragment implements ManagementView {
 
     @Override
     public void onGetParkingByUserSuccess(ArrayList<ParkingInfo> arrayList) {
+        this.arrayList.clear();
         this.arrayList.addAll(arrayList);
         checkListData();
     }
@@ -145,10 +146,11 @@ public class ManagementFragment extends IFragment implements ManagementView {
                 presenter.getParkingInfo(id);
             }
         } else if (requestCode == REQUEST_UPDATE && resultCode == RESULT_UPDATE) {
-            ParkingInfo parkingInfo = (ParkingInfo) data.getSerializableExtra(PARKING_MODEL);
-
-            if (parkingInfo != null)
-                managementAdapter.updateItem(parkingInfo);
+//            ParkingInfo parkingInfo = (ParkingInfo) data.getSerializableExtra(PARKING_MODEL);
+//
+//            if (parkingInfo != null)
+//                managementAdapter.updateItem(parkingInfo);
+            getParkingByUser();
         }
     }
 

@@ -18,6 +18,7 @@
     <string name="title_activity_view_history">Lịch sử check in</string>
     <string name="title_activity_update_parking">Cập nhật bãi đỗ</string>
     <string name="title_activity_favorite">Bãi đỗ yêu thích</string>
+    <string name="title_activity_resize_image">Chọn ảnh</string>
 
     <string name="spalsh_text">Tìm bãi đỗ xe gần bạn nhất</string>
     <string name="or_text">hoặc</string>
@@ -154,7 +155,19 @@
         <item>Qua đêm</item>
     </string-array>
 
-    <!-- Find Advanced -->
+    <!-- Menu -->
+    <string name="action_rotate">Quay ảnh</string>
+    <string name="action_crop">Crop</string>
+    <string name="action_done">Hoàn thành</string>
+
+    <!-- Error -->
+    <string name="have_error">Có lỗi xảy ra</string>
+    <string name="error_no_internet">Không có kết nối internet</string>
+    <string name="error_resize_image">Vui lòng chọn ảnh</string>
+    <string name="error_get_image">Không thể tải hình ảnh</string>
+
+    <!-- Doing -->
+    <string name="uploading_file">Đang tải ảnh…</string>
 
     <!-- Chi tiết -->
     <string name="rate">Rate</string>

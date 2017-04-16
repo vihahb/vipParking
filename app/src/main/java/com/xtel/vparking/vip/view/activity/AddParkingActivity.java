@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
@@ -41,7 +40,7 @@ import com.xtel.vparking.vip.view.adapter.AddParkingAdapter;
 import com.xtel.vparking.vip.view.adapter.PriceAdapter;
 import com.xtel.vparking.vip.view.fragment.ManagementFragment;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -67,8 +66,8 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     private Button btn_action;
 
     public static final String MODEL_FIND = "model_find";
-    public static final int REQUEST_LOCATION = 88, RESULT_LOCATION = 66, REQUEST_PHONE = 100, REQUEST_CAMERA = 10001;
-    private String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public static final int REQUEST_LOCATION = 88, RESULT_LOCATION = 66, REQUEST_PHONE = 100;
+    protected final int REQUEST_RESIZE_IMAGE = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +116,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         arrayList_price = new ArrayList<>();
-        arrayList_price.add(new Prices(-1, 0, 1, 3));
+        arrayList_price.add(new Prices(-1, 30, 1, 3));
         priceAdapter = new PriceAdapter(getApplicationContext(), arrayList_price, presenter, true);
         recyclerView.setAdapter(priceAdapter);
     }
@@ -137,26 +136,7 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     }
 
     public void TakePicture(View view) {
-        if (!PermissionHelper.checkListPermission(permission, this, REQUEST_CAMERA))
-            return;
-
-        takePicrute();
-    }
-
-    private void takePicrute() {
-        final Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-
-        //Create any other intents you want
-        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        //Add them to an intent array
-        Intent[] intents = new Intent[]{cameraIntent};
-
-        //Create a choose from your first intent then pass in the intent array
-        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ảnh");
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
-        startActivityForResult(chooserIntent, 101);
+        presenter.takePicrute();
     }
 
     public void DeletePicture(View view) {
@@ -171,6 +151,43 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
                 (sp_transport_type.getSelectedItemPosition() + 1), edt_place_number.getText().toString(), edt_parking_phone.getText().toString(),
                 edt_begin_time.getText().toString(), edt_end_time.getText().toString(), arrayList_price);
     }
+
+    /*
+    * Lấy ảnh đã đưuọc resize
+    * */
+    protected void getImageResize(Intent data) {
+        try {
+            String server_path = data.getStringExtra(Constants.SERVER_PATH);
+            String server_uri = data.getStringExtra(Constants.URI);
+            String file_path = data.getStringExtra(Constants.FILE);
+
+            if (server_path != null && server_uri != null && file_path != null) {
+                presenter.setImage(server_uri);
+                deleteImageFile(file_path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    * Xóa file trong bộ nhớ để tránh tạo ra nhiều ảnh
+    * */
+    protected boolean deleteImageFile(String file_path) {
+        try {
+            File file = new File(file_path);
+            return file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -238,42 +255,6 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
         txt_image_number.setText(img_position);
 
         btn_action.setText(getString(R.string.update));
-    }
-
-    private void onTakePictureGallary(Uri uri) {
-        if (!NetWorkInfo.isOnline(this)) {
-            showShortToast(getString(R.string.no_internet));
-            return;
-        } else if (uri == null) {
-            showShortToast("Không thể lấy ảnh");
-            return;
-        }
-
-        showProgressBar(false, false, null, "Đang tải file...");
-
-        Bitmap bitmap = null;
-
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        presenter.postImage(bitmap);
-    }
-
-    private void onTakePictureCamera(Bitmap bitmap) {
-        if (!NetWorkInfo.isOnline(this)) {
-            showShortToast(getString(R.string.no_internet));
-            return;
-        } else if (bitmap == null) {
-            showShortToast("Không thể lấy ảnh");
-            return;
-        }
-
-        showProgressBar(false, false, null, "Đang tải file...");
-
-        presenter.postImage(bitmap);
     }
 
     @Override
@@ -373,6 +354,40 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
     public void onDeletePriceError(Error error) {
         closeProgressBar();
         showShortToast(JsonParse.getCodeMessage(error.getCode(), getString(R.string.error)));
+    }
+
+    @Override
+    public void onTakePictureGallary(Uri uri) {
+        if (!NetWorkInfo.isOnline(this)) {
+            showShortToast(getString(R.string.error_no_internet));
+            return;
+        } else if (uri == null) {
+            showShortToast(getString(R.string.error_get_image));
+            return;
+        }
+
+        Intent intent = new Intent(this, ResizeImageActivity.class);
+        intent.putExtra(Constants.URI, uri);
+        intent.putExtra(Constants.TYPE, 0);
+
+        startActivityForResult(intent, REQUEST_RESIZE_IMAGE);
+    }
+
+    @Override
+    public void onTakePictureCamera(Bitmap bitmap) {
+        if (!NetWorkInfo.isOnline(this)) {
+            showShortToast(getString(R.string.error_no_internet));
+            return;
+        } else if (bitmap == null) {
+            showShortToast(getString(R.string.error_get_image));
+            return;
+        }
+
+        Intent intent = new Intent(this, ResizeImageActivity.class);
+        intent.putExtra(Constants.BITMAP, bitmap);
+        intent.putExtra(Constants.TYPE, 0);
+
+        startActivityForResult(intent, REQUEST_RESIZE_IMAGE);
     }
 
     @Override
@@ -484,42 +499,26 @@ public class AddParkingActivity extends BasicActivity implements View.OnClickLis
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 startActivityForResult(ChooseMapsActivity.class, MODEL_FIND, placeModel, REQUEST_LOCATION);
             else
                 showShortToast(getString(R.string.error_permission));
-        } else if (requestCode == REQUEST_CAMERA) {
-            boolean check = true;
-            for (int grantresults : grantResults) {
-                if (grantresults == PackageManager.PERMISSION_DENIED) {
-                    check = false;
-                    break;
-                }
-            }
-
-            if (check)
-                takePicrute();
-            else
-                showShortToast(getApplicationContext().getString(R.string.error_permission));
-        }
+        } else
+            presenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 101 && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            if (uri != null) {
-                onTakePictureGallary(uri);
-            } else {
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                onTakePictureCamera(bitmap);
-            }
-        } else if (requestCode == REQUEST_LOCATION && resultCode == RESULT_LOCATION) {
+        if (requestCode == REQUEST_LOCATION && resultCode == RESULT_LOCATION) {
             if (data != null) {
                 placeModel = (PlaceModel) data.getSerializableExtra(MODEL_FIND);
                 edt_address.setText(placeModel.getAddress());
             }
-        }
+        } if (requestCode == REQUEST_RESIZE_IMAGE && resultCode == RESULT_OK) {
+            getImageResize(data);
+        } else
+            presenter.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -142,6 +142,10 @@
             android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
             android:label="@string/title_activity_view_check_in" />
         <activity
+            android:name=".view.activity.ResizeImageActivity"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:label="@string/title_activity_resize_image" />
+        <activity
             android:name=".view.activity.MapsActivity"
             android:label="@string/title_activity_maps" />
     </application>

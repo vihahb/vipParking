@@ -1,8 +1,14 @@
 package com.xtel.vparking.vip.presenter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TimePicker;
 
@@ -24,7 +30,9 @@ import com.xtel.vparking.vip.model.entity.PlaceModel;
 import com.xtel.vparking.vip.model.entity.Prices;
 import com.xtel.vparking.vip.model.entity.RESP_Parking_Info;
 import com.xtel.vparking.vip.utils.JsonHelper;
+import com.xtel.vparking.vip.utils.PermissionHelper;
 import com.xtel.vparking.vip.utils.Task;
+import com.xtel.vparking.vip.view.activity.ChooseMapsActivity;
 import com.xtel.vparking.vip.view.activity.inf.AddParkingView;
 import com.xtel.vparking.vip.view.fragment.ManagementFragment;
 
@@ -40,6 +48,9 @@ public class AddParkingPresenter extends BasicPresenter {
     private ParkingInfo object;
     private int picture_id = -1;
     private boolean isUpdate = false;
+
+    private final int REQUEST_CAMERA = 101;
+    private String[] permission = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private ICmd cmd = new ICmd() {
         @Override
@@ -75,6 +86,35 @@ public class AddParkingPresenter extends BasicPresenter {
         if (object != null) {
             isUpdate = true;
             view.onGetDataSuccess(object);
+        }
+    }
+
+    public void takePicrute() {
+        if (!PermissionHelper.checkListPermission(permission, view.getActivity(), REQUEST_CAMERA))
+            return;
+
+        final Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryIntent.setType("image/*");
+
+        //Create any other intents you want
+        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        //Add them to an intent array
+        Intent[] intents = new Intent[]{cameraIntent};
+
+        //Create a choose from your first intent then pass in the intent array
+        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ảnh");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
+        view.getActivity().startActivityForResult(chooserIntent, REQUEST_CAMERA);
+    }
+
+    public void setImage(String url) {
+        if (!isUpdate)
+            view.onPostPictureSuccess(url);
+        else {
+            object.getPictures().clear();
+            object.getPictures().add(new Pictures(-1, url));
+            addPicture();
         }
     }
 
@@ -464,5 +504,34 @@ public class AddParkingPresenter extends BasicPresenter {
         }
 
         view.getActivity().finish();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA) {
+            boolean check = true;
+            for (int grantresults : grantResults) {
+                if (grantresults == PackageManager.PERMISSION_DENIED) {
+                    check = false;
+                    break;
+                }
+            }
+
+            if (check)
+                takePicrute();
+            else
+                view.showShortToast(view.getActivity().getString(R.string.error_permission));
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                view.onTakePictureGallary(uri);
+            } else {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                view.onTakePictureCamera(bitmap);
+            }
+        }
     }
 }

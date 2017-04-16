@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.xtel.vparking.vip.R;
 import com.xtel.vparking.vip.commons.Constants;
 import com.xtel.vparking.vip.dialog.ViewImageDialog;
+import com.xtel.vparking.vip.utils.WidgetHelper;
 
 import java.util.ArrayList;
 
@@ -62,21 +63,32 @@ public class ViewImageStoreFragment extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#5c5ca7"), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         if (url != null)
-            Picasso.with(getContext())
-                    .load(url)
-                    .noPlaceholder()
-                    .error(R.mipmap.ic_parking_background)
-                    .into(imageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            progressBar.setVisibility(View.GONE);
-                        }
+            WidgetHelper.getInstance().setParkingImageURL(imageView, url, new Callback() {
+                @Override
+                public void onSuccess() {
+                    progressBar.setVisibility(View.GONE);
+                }
 
-                        @Override
-                        public void onError() {
+                @Override
+                public void onError() {
 
-                        }
-                    });
+                }
+            });
+//            Picasso.with(getContext())
+//                    .load(url)
+//                    .noPlaceholder()
+//                    .error(R.mipmap.ic_parking_background)
+//                    .into(imageView, new Callback() {
+//                        @Override
+//                        public void onSuccess() {
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//
+//                        @Override
+//                        public void onError() {
+//
+//                        }
+//                    });
         else
             imageView.setImageResource(R.mipmap.ic_parking_background);
     }

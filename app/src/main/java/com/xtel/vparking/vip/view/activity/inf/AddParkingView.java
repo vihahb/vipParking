@@ -2,6 +2,7 @@ package com.xtel.vparking.vip.view.activity.inf;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
 
@@ -24,6 +25,8 @@ public interface AddParkingView {
     void onDeletePictureError(Error error);
     void onDeletePriceSuccess(int position);
     void onDeletePriceError(Error error);
+    void onTakePictureGallary(Uri uri);
+    void onTakePictureCamera(Bitmap bitmap);
     void onPostPictureError(String error);
     void onGetTimeSuccess(boolean isBegin, String hour, String minute);
     void onAddParkingSuccess(int id);

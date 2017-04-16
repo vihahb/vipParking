@@ -21,6 +21,13 @@ import java.util.Random;
  */
 
 public class Constants {
+//    Resize image
+    public static final String TYPE = "type";
+    public static final String SERVER_PATH = "server_path";
+    public static final String FILE = "file";
+    public static final String URI = "uri";
+    public static final String BITMAP = "bitmap";
+
     public static final String SHARED_USER_NAME = "share_user_name";
     public static final String USER_FACEBOOK_ID = "user_facebook_id";
     public static final String USER_TOKEN = "user_token";
