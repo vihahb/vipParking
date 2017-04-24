@@ -62,6 +62,11 @@ public class ScanQrPresenter extends BasicPresenter {
                     else
                         view.onGetVerhicleError(error);
                 }
+
+                @Override
+                public void onUpdate() {
+                    view.onUpdateVersion();
+                }
             });
         }
     };
@@ -98,6 +103,11 @@ public class ScanQrPresenter extends BasicPresenter {
             @Override
             public void onError(Error error) {
                 view.onCheckingError(error);
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }

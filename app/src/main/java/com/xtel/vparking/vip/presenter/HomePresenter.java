@@ -94,6 +94,11 @@ public class HomePresenter {
                     else
                         homeView.onActiveMasterFailed(JsonParse.getCodeMessage(error.getCode(), homeView.getActivity().getString(R.string.loi_coloi)));
                 }
+
+                @Override
+                public void onUpdate() {
+                    homeView.onUpdateVersion();
+                }
             });
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

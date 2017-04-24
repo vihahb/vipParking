@@ -77,6 +77,11 @@ public class ProfilePresenter {
                     Log.e("Update code: ", String.valueOf(error.getCode()));
                 Log.e("Update message: ", error.getMessage());
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
     }
 
@@ -113,6 +118,11 @@ public class ProfilePresenter {
                 } else
                     Log.e("Update code: ", String.valueOf(error.getCode()));
                 Log.e("Update message: ", error.getMessage());
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }
@@ -173,6 +183,11 @@ public class ProfilePresenter {
                 view.closeProgressBar();
                 Log.e("Ma loi user:", String.valueOf(error.getCode()));
                 Log.e("Message user: ", error.getMessage());
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }

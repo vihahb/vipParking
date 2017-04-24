@@ -172,6 +172,11 @@ public class LoginPresenter {
                     Log.e("Ma loi Fb login:", String.valueOf(error.getCode()));
                     Log.e("Message: ", error.getMessage());
                 }
+
+                @Override
+                public void onUpdate() {
+                    view.onUpdateVersion();
+                }
             });
         } else {
             Log.e("Loi Get Device", "");
@@ -209,6 +214,11 @@ public class LoginPresenter {
                     Log.e("Ma loi acc login:", String.valueOf(error.getCode()));
                     Log.e("Message: ", error.getMessage());
                     view.closeProgressBar();
+                }
+
+                @Override
+                public void onUpdate() {
+                    view.onUpdateVersion();
                 }
             });
 
@@ -258,6 +268,11 @@ public class LoginPresenter {
                 Log.e("Ma loi Flag:", String.valueOf(error.getCode()));
                 Log.e("Message Flag: ", error.getMessage());
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
     }
 
@@ -285,6 +300,11 @@ public class LoginPresenter {
                 view.closeProgressBar();
                 Log.e("Ma loi user:", String.valueOf(error.getCode()));
                 Log.e("Message user: ", error.getMessage());
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }

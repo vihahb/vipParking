@@ -68,6 +68,11 @@ public class AddParkingPresenter extends BasicPresenter {
                     else
                         view.onDeletePictureError(error);
                 }
+
+                @Override
+                public void onUpdate() {
+                    view.onUpdateVersion();
+                }
             });
         }
     };
@@ -161,6 +166,11 @@ public class AddParkingPresenter extends BasicPresenter {
                 else
                     view.onAddPictureError(error);
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
     }
 
@@ -199,6 +209,11 @@ public class AddParkingPresenter extends BasicPresenter {
                     getNewSessionDeleteParkingPrices(position, id);
                 else
                     view.onDeletePriceError(error);
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }
@@ -335,6 +350,11 @@ public class AddParkingPresenter extends BasicPresenter {
                     view.onAddParkingError(error);
                 }
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
     }
 
@@ -369,6 +389,11 @@ public class AddParkingPresenter extends BasicPresenter {
                         getNewSessionDeleteAllPrice(arrayList);
                     else
                         view.onUpdateParkingError(error);
+                }
+
+                @Override
+                public void onUpdate() {
+                    view.onUpdateVersion();
                 }
             });
         } else
@@ -407,6 +432,11 @@ public class AddParkingPresenter extends BasicPresenter {
                 else
                     view.onUpdateParkingError(error);
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
     }
 
@@ -441,6 +471,11 @@ public class AddParkingPresenter extends BasicPresenter {
                     getNewSessionUpdateParking();
                 else
                     view.onAddParkingError(error);
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }

@@ -51,6 +51,11 @@ public class AddVerhiclePresenter {
                 Log.e("brandname err code", "null k: " + String.valueOf(error.getCode()));
                 Log.e("brandname err mess", "null k: " + error.getMessage());
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
 
     }
@@ -84,6 +89,11 @@ public class AddVerhiclePresenter {
 //                    view.showShortToast(error.getMessage());
                 Log.e("Err add v", String.valueOf(error.getCode()));
                 Log.e("Err add v type", error.getMessage());
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }
@@ -121,6 +131,11 @@ public class AddVerhiclePresenter {
                     view.showShortToast(error.getMessage());
                 Log.e("Err add v2", String.valueOf(error.getCode()));
                 Log.e("Err add v2 type", error.getMessage());
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }

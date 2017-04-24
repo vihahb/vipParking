@@ -1,8 +1,6 @@
 package com.xtel.vparking.vip.callback;
 
 
-import android.util.Log;
-
 import com.xtel.vparking.vip.model.entity.Error;
 import com.xtel.vparking.vip.model.entity.RESP_Basic;
 import com.xtel.vparking.vip.model.entity.RESP_Parking_Info;
@@ -31,7 +29,10 @@ public abstract class ResponseHandle<T extends RESP_Basic> {
             } else {
                 T t = JsonHelper.getObjectNoException(result, clazz);
                 if (t.getError() != null) {
-                    onError(t.getError());
+//                    if (t.getError().getCode() == 5)
+//                        onUpdate();
+//                    else
+                        onError(t.getError());
                 } else {
                     onSuccess(t);
                 }
@@ -48,4 +49,6 @@ public abstract class ResponseHandle<T extends RESP_Basic> {
     public abstract void onSuccess(T obj);
 
     public abstract void onError(Error error);
+
+    public abstract void onUpdate();
 }

@@ -231,16 +231,19 @@ public class HomeFragment extends IFragment implements
             }
         });
 
-        dialogBottomSheet.onGuidClicked(new DialogListener() {
+        dialogBottomSheet.onGuidClicked(new View.OnClickListener() {
             @Override
-            public void onClicked(Object object) {
-                actionType = 2;
+            public void onClick(View v) {
+                actionType = 2 ;
                 presenter.getMyLocation();
             }
+        });
 
+        dialogBottomSheet.onDirectionClicked(new View.OnClickListener() {
             @Override
-            public void onCancle() {
-
+            public void onClick(View v) {
+                actionType = 2 ;
+                presenter.getMyLocation();
             }
         });
 

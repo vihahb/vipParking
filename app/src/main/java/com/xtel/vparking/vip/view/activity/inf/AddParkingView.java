@@ -13,7 +13,7 @@ import com.xtel.vparking.vip.model.entity.ParkingInfo;
  * Created by Lê Công Long Vũ on 12/2/2016.
  */
 
-public interface AddParkingView {
+public interface AddParkingView extends BasicView {
 
     void showShortToast(String message);
     void showProgressBar(boolean isTouchOutside, boolean isCancel, String title, String message);

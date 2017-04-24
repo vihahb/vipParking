@@ -59,6 +59,11 @@ public class VerhiclePresenter {
                     else
                         view.onGetVerhicleError(error);
             }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
+            }
         });
     }
 
@@ -152,6 +157,11 @@ public class VerhiclePresenter {
             public void onError(Error error) {
                 if (error.getCode() == 2)
                     getNewSessionVerhicleById(id);
+            }
+
+            @Override
+            public void onUpdate() {
+                view.onUpdateVersion();
             }
         });
     }
